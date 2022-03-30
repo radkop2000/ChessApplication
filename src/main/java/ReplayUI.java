@@ -186,11 +186,12 @@ public class ReplayUI {
                     } catch (NumberFormatException c) {
                         if (jumpToRoundText.getText().equals("end")) {
                             show();
-                            while (pgn.moveIDX <= pgn.moves.size()) {
+                            while (pgn.moveIDX < pgn.moves.size()) {
                                 pgn.nextTurnReplay();
                             }
+                        } else {
+                            showMessage("Please enter a number or \"end\"", 4);
                         }
-                        showMessage("Please enter a number or \"end\"", 4);
                     }
                     updateTopText();
                 }
@@ -280,7 +281,7 @@ public class ReplayUI {
 
     }
 
-    public void drawBoard() {
+    private void drawBoard() {
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
                 if (board[i][j].getColor() == 'N') {
@@ -332,7 +333,6 @@ public class ReplayUI {
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
                 if (board[i][j].getColor() == turnOf && board[i][j].getClass().getName().charAt(0) == piece) {
-//                    System.out.println("piece is at: " + i + " " + j);
                     int[][] moves = board[i][j].PossibleMoves();
                     int idx = 0;
                     while (moves[idx][0] != -1) {
@@ -359,11 +359,15 @@ public class ReplayUI {
                 counter++;
             }
         }
+        System.out.println(pgn.currentGame);
 
         StringBuilder sb = new StringBuilder();
         while (pgn.currentGame.charAt(idx) != '\n') {
             sb.append(pgn.currentGame.charAt(idx++));
         }
+        // TODO
+
+        System.out.println(sb);
 
         if (sb.toString().equals("[Result \"1/2-1/2\"]")) {
             showMessage("The game ended in a DRAW", 10);

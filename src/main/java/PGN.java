@@ -17,7 +17,6 @@ public class PGN {
     Chess ch;
 
     String currentGame = "";
-    String header = "";
     int charsInLine = 0;
     char turnOf = 'W';
 
@@ -46,24 +45,12 @@ public class PGN {
             result = "1/2-1/2";
         }
 
+
+        String header = String.format("[Event \"Chess Game\"]\n[Site \"Prague\"]\n[Date \"%s\"]\n[Round \"%d\"]\n[White \"?\"]\n[Black \"?\"]\n[Result \"%s\"]\n\n", date, round, result);
+
+
         return header.concat(currentGame).concat(result);
 
-    }
-
-    public void resetHeader() {
-        String date = java.time.LocalDate.now().toString();
-        int round = ch.turn;
-        String result;
-        if (ch.state == -1) {
-            result = "*";
-        } else if (ch.state == 0) {
-            result = "1-0";
-        } else if (ch.state == 1) {
-            result = "0-1";
-        } else {
-            result = "1/2-1/2";
-        }
-        header = String.format("[Event \"Chess Game\"]\n[Site \"Prague\"]\n[Date \"%s\"]\n[Round \"%d\"]\n[White \"?\"]\n[Black \"?\"]\n[Result \"%s\"]\n\n", date, round, result);
     }
 
     public void updatePGN(int fromX, int fromY, int toX, int toY, boolean takes, char piece) {
@@ -205,29 +192,13 @@ public class PGN {
     }
 
     public void loadPGNString(String pgn) {
-        currentGame = "";
-        header = "";
-        int counter = 0;
-        int idx = 0;
-        while (counter < 8) {
-            header = header.concat(String.valueOf(pgn.charAt(idx)));
-            if (pgn.charAt(idx++) == '\n') {
-                counter++;
-            }
-        }
-        while (idx < pgn.length()) {
-            currentGame = currentGame.concat(String.valueOf(pgn.charAt(idx++)));
-        }
-        System.out.println(header);
-        System.out.println("______________");
-        System.out.println(currentGame);
+        currentGame = pgn;
         splitToMoves();
     }
 
     public void nextTurnReplay() {
         if (moveIDX == moves.size() - 1) {
             ch.gm.replayUI.showEndMessage();
-            System.out.println("END OF THE REPLAYGAME");
         } else if (moveIDX > moves.size() - 1) {
             ch.gm.replayUI.showEndMessage();
             return;
@@ -295,16 +266,18 @@ public class PGN {
             return;
         }
         if (move.length() == 2) {
+            System.out.println(move);
             ch.gm.replayUI.move(turnOf, 'P', Math.abs(move.charAt(1) - 56), (int) move.charAt(0) - 97);
         } else if (!isUpperCase(move.charAt(0)) && move.length() == 3) {
             ch.gm.replayUI.move(turnOf, 'P', move.charAt(0)-97, Math.abs(move.charAt(2) - 56), (int) move.charAt(1) - 97);
         } else if (move.length() == 3) {
+            System.out.println(move);
             ch.gm.replayUI.move(turnOf, move.charAt(0) , Math.abs(move.charAt(2) - 56), (int) move.charAt(1) - 97);
         } else if ((move.length() == 4)) {
+            System.out.println(move);
             ch.gm.replayUI.move(turnOf, move.charAt(0), move.charAt(1)-97, Math.abs(move.charAt(3) - 56), (int) move.charAt(2) - 97);
         } else {
             System.out.println("NOT A VALID MOVE UHH OHH");
-            System.out.println(move);
         }
 
         changeTurnOf();
@@ -374,7 +347,7 @@ public class PGN {
         changeTurnOf();
     }
 
-    private void changeTurnOf() {
+    public void changeTurnOf() {
         if (turnOf == 'W') {
             turnOf = 'B';
         } else {
@@ -389,6 +362,7 @@ public class PGN {
         currentGame = getPGN();
         while (counter < 8) {
             if (currentGame.charAt(idx++) == '\n') {
+                System.out.println("FOUND ENTER");
                 counter++;
             }
         }
@@ -416,7 +390,6 @@ public class PGN {
             idx++;
             sb.setLength(0);
         }
-        System.out.println(sb);
         System.out.println("STRING SPLIT SUCCESSFULLY");
     }
 }

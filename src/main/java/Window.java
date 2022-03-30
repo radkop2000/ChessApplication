@@ -11,7 +11,7 @@ public class Window {
         this.gm = gm;
         window = new JFrame();
         window.setLayout(null);
-        window.setSize(1366, 794);
+        window.setSize(1366, 768);
         window.getContentPane().setBackground(Color.black);
         //noinspection MagicConstant
         window.setDefaultCloseOperation(exit());

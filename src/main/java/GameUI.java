@@ -457,7 +457,7 @@ public class GameUI {
         updateTurnCounter();
     }
 
-    private void createPieces() {
+    public void createPieces() {
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
                 tiles[i][j] = new Tile(this, i, j);
@@ -465,7 +465,7 @@ public class GameUI {
         }
     }
 
-    private void drawPieces() {
+    public void drawPieces() {
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
                 if (gm.ch.board[i][j].getColor() != 'N') {
@@ -638,7 +638,7 @@ public class GameUI {
         unpaintMoves();
     }
 
-    private void drawTurnCounter() {
+    public void drawTurnCounter() {
         turnTimer = new JLabel();
         turnTimer.setText("1");
         turnTimer.setBounds(1184,20,200, 60);
@@ -646,7 +646,7 @@ public class GameUI {
         mainPanel.add(turnTimer);
     }
 
-    private void drawActivePlayer() {
+    public void drawActivePlayer() {
         activePlayer = new JLabel();
         activePlayer.setText("White");
         activePlayer.setBounds(1198,69,200, 60);

@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement />
+  <nodes>
+    <node x="53.0" y="-134.0">com</node>
+    <node x="9392.5" y="-134.0">Chess</node>
+    <node x="6795.0" y="-212.5">Bishop</node>
+    <node x="8338.0" y="-146.5">Operator</node>
+    <node x="8134.5" y="-134.0">netscape</node>
+    <node x="5960.0" y="-146.5">ComputerEasy</node>
+    <node x="7245.0" y="-134.0">toolbarButtonGraphics</node>
+    <node x="7076.0" y="-134.0">sun</node>
+    <node x="7555.0" y="-212.5">Pawn</node>
+    <node x="234.5" y="-146.5">MenuSettingsUI</node>
+    <node x="6168.0" y="-134.0">apple</node>
+    <node x="5710.0" y="-134.0">groovyjarjarasm</node>
+    <node x="927.5" y="-146.5">MenuMainUI</node>
+    <node x="5534.0" y="-134.0">java</node>
+    <node x="1990.0" y="-146.5">MenuPlayUI</node>
+    <node x="5304.5" y="-223.5">Board</node>
+    <node x="7835.0" y="-212.5">King</node>
+    <node x="258.5" y="-446.5">UI</node>
+    <node x="4870.0" y="-134.0">javax</node>
+    <node x="8815.0" y="-512.5">Piece</node>
+    <node x="4655.0" y="-146.5">ManagerUI</node>
+    <node x="8535.0" y="-212.5">Horse</node>
+    <node x="5969.0" y="-446.5">Computer</node>
+    <node x="4381.0" y="-134.0">groovyjarjarpicocli</node>
+    <node x="3984.5" y="-134.0">Pieces</node>
+    <node x="8815.0" y="-212.5">Rook</node>
+    <node x="2744.0" y="-146.5">MenuPlayBuilderUI</node>
+    <node x="3743.5" y="-157.5">Window</node>
+    <node x="3542.0" y="-134.0">images</node>
+    <node x="3177.0" y="-134.0">org</node>
+    <node x="2980.0" y="-134.0">ManagerGame</node>
+    <node x="9095.0" y="-212.5">Queen</node>
+    <node x="6347.5" y="-146.5">ComputerCheater</node>
+    <node x="3340.5" y="-146.5">MenuReplayUI</node>
+    <node x="2532.0" y="-179.5">Tile</node>
+    <node x="6566.5" y="-146.5">ComputerRandom</node>
+    <node x="4173.0" y="-146.5">MenuPlayPGNUI</node>
+    <node x="2378.0" y="-134.0">jdk</node>
+    <node x="2172.0" y="-134.0">META-INF</node>
+    <node x="5054.0" y="-146.5">MenuPlayEndGameUI</node>
+    <node x="1804.5" y="-134.0">groovy</node>
+    <node x="1432.0" y="-223.5">PGN</node>
+    <node x="1121.0" y="-134.0">groovyjarjarcommonscli</node>
+    <node x="717.0" y="-134.0">ManagerReplay</node>
+    <node x="448.5" y="-134.0">groovyjarjarantlr</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="MenuPlayPGNUI" target="UI" relationship="REALIZATION">
+      <point x="0.0" y="-26.5" />
+      <point x="4260.0" y="-240.0" />
+      <point x="320.0" y="-240.0" />
+      <point x="0.0" y="26.5" />
+    </edge>
+    <edge source="Bishop" target="Piece" relationship="REALIZATION">
+      <point x="0.0" y="-92.5" />
+      <point x="6920.0" y="-260.0" />
+      <point x="8940.0" y="-260.0" />
+      <point x="0.0" y="92.5" />
+    </edge>
+    <edge source="MenuSettingsUI" target="UI" relationship="REALIZATION">
+      <point x="0.0" y="-26.5" />
+      <point x="0.0" y="26.5" />
+    </edge>
+    <edge source="ComputerEasy" target="Computer" relationship="REALIZATION">
+      <point x="0.0" y="-26.5" />
+      <point x="0.0" y="26.5" />
+    </edge>
+    <edge source="ComputerCheater" target="Computer" relationship="REALIZATION">
+      <point x="0.0" y="-26.5" />
+      <point x="6440.0" y="-180.0" />
+      <point x="6040.0" y="-180.0" />
+      <point x="0.0" y="26.5" />
+    </edge>
+    <edge source="Pawn" target="Piece" relationship="REALIZATION">
+      <point x="0.0" y="-92.5" />
+      <point x="7680.0" y="-260.0" />
+      <point x="8940.0" y="-260.0" />
+      <point x="0.0" y="92.5" />
+    </edge>
+    <edge source="ComputerRandom" target="Computer" relationship="REALIZATION">
+      <point x="0.0" y="-26.5" />
+      <point x="6660.0" y="-180.0" />
+      <point x="6040.0" y="-180.0" />
+      <point x="0.0" y="26.5" />
+    </edge>
+    <edge source="Horse" target="Piece" relationship="REALIZATION">
+      <point x="0.0" y="-92.5" />
+      <point x="8660.0" y="-260.0" />
+      <point x="8940.0" y="-260.0" />
+      <point x="0.0" y="92.5" />
+    </edge>
+    <edge source="MenuPlayUI" target="UI" relationship="REALIZATION">
+      <point x="0.0" y="-26.5" />
+      <point x="2060.0" y="-240.0" />
+      <point x="320.0" y="-240.0" />
+      <point x="0.0" y="26.5" />
+    </edge>
+    <edge source="Rook" target="Piece" relationship="REALIZATION">
+      <point x="0.0" y="-92.5" />
+      <point x="0.0" y="92.5" />
+    </edge>
+    <edge source="King" target="Piece" relationship="REALIZATION">
+      <point x="0.0" y="-92.5" />
+      <point x="7960.0" y="-260.0" />
+      <point x="8940.0" y="-260.0" />
+      <point x="0.0" y="92.5" />
+    </edge>
+    <edge source="MenuPlayEndGameUI" target="UI" relationship="REALIZATION">
+      <point x="0.0" y="-26.5" />
+      <point x="5160.0" y="-240.0" />
+      <point x="320.0" y="-240.0" />
+      <point x="0.0" y="26.5" />
+    </edge>
+    <edge source="MenuPlayBuilderUI" target="UI" relationship="REALIZATION">
+      <point x="0.0" y="-26.5" />
+      <point x="2840.0" y="-240.0" />
+      <point x="320.0" y="-240.0" />
+      <point x="0.0" y="26.5" />
+    </edge>
+    <edge source="MenuReplayUI" target="UI" relationship="REALIZATION">
+      <point x="0.0" y="-26.5" />
+      <point x="3420.0" y="-240.0" />
+      <point x="320.0" y="-240.0" />
+      <point x="0.0" y="26.5" />
+    </edge>
+    <edge source="MenuMainUI" target="UI" relationship="REALIZATION">
+      <point x="0.0" y="-26.5" />
+      <point x="1000.0" y="-240.0" />
+      <point x="320.0" y="-240.0" />
+      <point x="0.0" y="26.5" />
+    </edge>
+    <edge source="Queen" target="Piece" relationship="REALIZATION">
+      <point x="0.0" y="-92.5" />
+      <point x="9220.0" y="-260.0" />
+      <point x="8940.0" y="-260.0" />
+      <point x="0.0" y="92.5" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Compact" zoom="0.05901639344262295" showDependencies="false" x="4770.5" y="-264.5" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Methods</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

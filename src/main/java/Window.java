@@ -12,12 +12,15 @@ public class Window extends JFrame {
     }
 
     private void setup() {
-        // TODO
+        setLayout(null);
+        setBounds(0,0,1366,768);
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     }
 
     public void showPanel(JPanel panel) {
         remove(activePanel);
         add(panel);
         activePanel = panel;
+        repaint();
     }
 }

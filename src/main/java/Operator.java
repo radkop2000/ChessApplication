@@ -10,10 +10,8 @@ public class Operator {
 
 
     public Operator() {
-        SwingUtilities.invokeLater(() -> {
-            window = new Window();
-            window.setVisible(true);
-        });
+        window = new Window();
+        window.setVisible(true);
         ui = new ManagerUI(this, window);
         board = new Board(this);
         game = new ManagerGame(this, board);

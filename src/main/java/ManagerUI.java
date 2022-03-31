@@ -31,6 +31,8 @@ public class ManagerUI {
         play = new MenuPlayUI(this);
         replay = new MenuReplayUI(this);
         settings = new MenuSettingsUI(this);
+
+        showPanel(MENU_MAIN);
     }
 
     public void showPanel(int panel) {

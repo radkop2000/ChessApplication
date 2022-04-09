@@ -7,7 +7,7 @@ public class ManagerUI {
     public static final int MENU_PLAY =             4;
     public static final int MENU_REPLAY =           5;
     public static final int MENU_SETTINGS =         6;
-
+    public static final int GAME =                  7;
 
     Operator op;
     Window window;
@@ -19,6 +19,7 @@ public class ManagerUI {
     MenuPlayUI play;
     MenuReplayUI replay;
     MenuSettingsUI settings;
+    GameUI game;
 
 
     public ManagerUI(Operator op, Window window) {
@@ -31,6 +32,9 @@ public class ManagerUI {
         play = new MenuPlayUI(this);
         replay = new MenuReplayUI(this);
         settings = new MenuSettingsUI(this);
+        game = new GameUI(this);
+
+        showPanel(MENU_MAIN);
     }
 
     public void showPanel(int panel) {
@@ -48,9 +52,13 @@ public class ManagerUI {
             case 1 -> window.showPanel(builder);
             case 2 -> window.showPanel(endGame);
             case 3 -> window.showPanel(playPGN);
-            case 4 -> window.showPanel(play);
+            case 4 -> {
+                window.showPanel(play);
+                op.board.againstComputer = true;
+            }
             case 5 -> window.showPanel(replay);
             case 6 -> window.showPanel(settings);
+            case 7 -> window.showPanel(game);
         }
     }
 }

@@ -46,6 +46,10 @@ public class PGN {
         // TODO
     }
 
+    public void splitToMoves() {
+        // TODO
+    }
+
 
 
 

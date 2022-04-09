@@ -17,8 +17,16 @@ public class Horse implements Piece{
 
     @Override
     public ArrayList<int[]> possibleMoves() {
-        // TODO
-        return null;
+        ArrayList<int[]> moves = new ArrayList<int[]>();
+        for (int i = -2; i <= 2; i++) {
+            for (int j = -2; j <= 2; j++) {
+                if (Math.abs(i) + Math.abs(j) == 3 && x+i < 8 && x+i >= 0 && y+j < 8 &&
+                        y+j >= 0 && board.getColor(x+i, y+j) != color ) {
+                    moves.add(new int[]{x+i,y+j});
+                }
+            }
+        }
+        return moves;
     }
 
     @Override

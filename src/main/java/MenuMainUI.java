@@ -16,6 +16,7 @@ public class MenuMainUI extends JPanel implements UI{
     @Override
     public void setup() {
         setBounds(0,0, 1366, 768);
+        setLayout(null);
 
         JLabel background = new JLabel();
         background.setBounds(0,0,1366,768);

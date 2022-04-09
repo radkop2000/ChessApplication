@@ -1,19 +1,18 @@
 import javax.swing.*;
-import java.awt.*;
 
-public class Window extends JFrame {
+public class Window extends JFrame implements Runnable {
 
     JPanel activePanel;
 
 
     public Window() {
-        setup();
         activePanel = new JPanel();
     }
 
-    private void setup() {
+    @Override
+    public void run() {
         setLayout(null);
-        setBounds(0,0,1366,768);
+        setBounds(0,0,1366,798);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     }
 
@@ -23,4 +22,6 @@ public class Window extends JFrame {
         activePanel = panel;
         repaint();
     }
+
+
 }

@@ -11,7 +11,11 @@ public class Board {
     int[] clickedOn = new int[2];
     char turnOf = 'W';
     boolean againstComputer;
-    Computer computer = new ComputerCheater(this, 'B');
+    int turn;
+
+    Computer computer = new Computer(this, 'B', 2);
+
+
 
 
 
@@ -19,6 +23,7 @@ public class Board {
         this.op = op;
         tiles = new Tile[8][8];
         pieces = new Piece[8][8];
+        turn = 0;
         setup();
     }
 
@@ -103,16 +108,16 @@ public class Board {
 
     public void tilePressed(int x, int y) {
 
-//        if (!tiles[x][y].isHighlighted && getColor(x,y) != turnOf) {   SWAP FOR TESTING
-//            return;
-//        }
-        if (!tiles[x][y].isHighlighted && getColor(x,y) == 'N') {
+        if (!tiles[x][y].isHighlighted && getColor(x,y) != turnOf) {   // SWAP FOR TESTING
             return;
         }
+//        if (!tiles[x][y].isHighlighted && getColor(x,y) == 'N') {
+//            return;
+//        }
 
         if (tiles[x][y].isHighlighted) {
-            move(x,y);
             resetColors();
+            move(x,y);
             return;
         }
 
@@ -129,6 +134,11 @@ public class Board {
     }
 
     public void move(int x, int y) {
+
+        resetColors();
+
+        tiles[x][y].mouseOn();
+        tiles[clickedOn[0]][clickedOn[1]].mouseOn();
 
         if (getPiece(clickedOn[0], clickedOn[1]) == 'K' && Math.abs(clickedOn[1]-y) == 2) {
             castle(y);
@@ -191,9 +201,10 @@ public class Board {
             System.out.println("KONIEC HRY SOM NASIEL");
         }
 
-        if (againstComputer && computer.getColor() == turnOf) {
+//        if (againstComputer && computer.getColor() == turnOf) {
             computer.nextTurn();
-        }
+//        }
+        turn++;
     }
 
     public void move(int fromX, int fromY, int toX, int toY) {

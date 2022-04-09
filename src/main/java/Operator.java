@@ -1,11 +1,8 @@
-import javax.swing.*;
-
 public class Operator {
 
     Window window;
     ManagerUI ui;
     Board board;
-    ManagerReplay replay;
 
 
 
@@ -16,7 +13,6 @@ public class Operator {
         window.setVisible(true);
         board = new Board(this);
         ui = new ManagerUI(this, window);
-        replay = new ManagerReplay(this);
     }
 
     public static void main(String[] args) {

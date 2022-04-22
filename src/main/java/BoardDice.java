@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Random;
 
 public class BoardDice implements Board{
@@ -107,6 +106,10 @@ public class BoardDice implements Board{
             castle(y);
         }
 
+        if (getPiece(clickedOn[0], clickedOn[1]) == 'P' && x != clickedOn[0] && y != clickedOn[1] && getColor(x,y) == 'N') {
+            enPassant(y);
+        }
+
         putPiece(getColor(clickedOn[0], clickedOn[1]) + "" + getPiece(clickedOn[0], clickedOn[1]), x, y);
         removePiece(clickedOn[0], clickedOn[1]);
 
@@ -117,6 +120,10 @@ public class BoardDice implements Board{
         } else {
             endTurn();
         }
+    }
+
+    private void enPassant(int y) {
+        putPiece("NN", clickedOn[0], clickedOn[1] - (clickedOn[1] - y));
     }
 
     private void castle(int y) {

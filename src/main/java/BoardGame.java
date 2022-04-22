@@ -124,7 +124,6 @@ public class BoardGame implements Board {
 
     private void enPassant(int y) {
         putPiece("NN", clickedOn[0], clickedOn[1] - (clickedOn[1] - y));
-        System.out.println(clickedOn[0] + " " + (clickedOn[1] - (clickedOn[1] - y)));
     }
 
     private void castle(int y) {

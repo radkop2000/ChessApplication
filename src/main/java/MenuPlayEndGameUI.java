@@ -1,6 +1,6 @@
 import javax.swing.*;
 
-public class MenuPlayEndGameUI extends JPanel implements UI {
+public class MenuPlayEndGameUI extends JPanel {
 
     ManagerUI ui;
 
@@ -9,7 +9,6 @@ public class MenuPlayEndGameUI extends JPanel implements UI {
         setup();
     }
 
-    @Override
     public void setup() {
 
     }

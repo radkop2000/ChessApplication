@@ -1,10 +1,8 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
+import java.awt.event.*;
 
-public class MenuMainUI extends JPanel implements UI{
+public class MenuMainUI extends JPanel{
 
     ManagerUI ui;
 
@@ -13,7 +11,6 @@ public class MenuMainUI extends JPanel implements UI{
         setup();
     }
 
-    @Override
     public void setup() {
         setBounds(0,0, 1366, 768);
         setLayout(null);
@@ -22,6 +19,11 @@ public class MenuMainUI extends JPanel implements UI{
         background.setBounds(0,0,1366,768);
         ImageIcon backgroundIcon = new ImageIcon("src/main/resources/MenuMain.png");
         background.setIcon(backgroundIcon);
+
+        JButton button = new JButton("DICE GAMEMODE");
+        button.setBounds(100,100,100,50);
+        button.addActionListener(e -> ui.showPanel(ManagerUI.DICE));
+        add(button);
 
         JLabel buttonStart = new JLabel();
         buttonStart.setBounds(80, 355, 90, 45);

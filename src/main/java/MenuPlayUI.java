@@ -3,7 +3,7 @@ import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
-public class MenuPlayUI extends JPanel implements UI{
+public class MenuPlayUI extends JPanel{
 
     ManagerUI ui;
     boolean isComputer;
@@ -14,7 +14,6 @@ public class MenuPlayUI extends JPanel implements UI{
         setup();
     }
 
-    @Override
     public void setup() {
 
         setBounds(0,0,1366,768);
@@ -62,10 +61,9 @@ public class MenuPlayUI extends JPanel implements UI{
             @Override
             public void mouseClicked(MouseEvent e) {
                 ui.showPanel(ManagerUI.GAME);
-                ui.op.board.setupClassic();
+                ui.game.board.setupClassic();
                 ui.game.redrawBackground();
                 ui.op.window.repaint();
-                ui.op.board.playable = true;
             }
 
             @Override
@@ -186,12 +184,13 @@ public class MenuPlayUI extends JPanel implements UI{
     }
 
     private void changeAgainst() {
+
         if (isComputer) {
-            ui.op.board.againstComputer = false;
+            ui.game.board.againstComputer = false;
             ImageIcon icon = new ImageIcon("src/main/resources/MenuPlayPlayer.png");
             background.setIcon(icon);
         } else {
-            ui.op.board.againstComputer = true;
+            ui.game.board.againstComputer = true;
             ImageIcon icon = new ImageIcon("src/main/resources/MenuPlayComputer.png");
             background.setIcon(icon);
         }

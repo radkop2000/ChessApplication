@@ -1,11 +1,8 @@
-import javax.swing.*;
-
 public class Operator {
 
     Window window;
     ManagerUI ui;
-    Board board;
-    ManagerReplay replay;
+    BoardGame board;
 
 
 
@@ -14,9 +11,7 @@ public class Operator {
         Thread windowThread = new Thread(window);
         windowThread.start();
         window.setVisible(true);
-        board = new Board(this);
         ui = new ManagerUI(this, window);
-        replay = new ManagerReplay(this);
     }
 
     public static void main(String[] args) {

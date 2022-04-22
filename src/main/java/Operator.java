@@ -2,7 +2,7 @@ public class Operator {
 
     Window window;
     ManagerUI ui;
-    Board board;
+    BoardGame board;
 
 
 
@@ -11,7 +11,6 @@ public class Operator {
         Thread windowThread = new Thread(window);
         windowThread.start();
         window.setVisible(true);
-        board = new Board(this);
         ui = new ManagerUI(this, window);
     }
 

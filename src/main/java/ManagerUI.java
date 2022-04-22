@@ -9,6 +9,7 @@ public class ManagerUI {
     public static final int MENU_SETTINGS =         6;
     public static final int GAME =                  7;
     public static final int REPLAY =                8;
+    public static final int DICE =                  9;
 
     Operator op;
     Window window;
@@ -22,6 +23,7 @@ public class ManagerUI {
     MenuSettingsUI settings;
     GameUI game;
     ReplayUI replay;
+    DiceGameUI dice;
 
 
 
@@ -37,6 +39,7 @@ public class ManagerUI {
         settings = new MenuSettingsUI(this);
         game = new GameUI(this);
         replay = new ReplayUI(this);
+        dice = new DiceGameUI(this);
 
         showPanel(MENU_MAIN);
     }
@@ -58,12 +61,18 @@ public class ManagerUI {
             case 3 -> window.showPanel(playPGN);
             case 4 -> {
                 window.showPanel(play);
-                op.board.againstComputer = true;
+                game.board.againstComputer = true;
             }
             case 5 -> window.showPanel(replayMenu);
             case 6 -> window.showPanel(settings);
             case 7 -> window.showPanel(game);
             case 8 -> window.showPanel(replay);
+            case 9 -> {
+                window.showPanel(dice);
+                dice.board.setupClassic();
+                dice.redrawBackground();
+                op.window.repaint();
+            }
         }
     }
 }

@@ -8,13 +8,17 @@ public class ReplayUI extends JPanel implements UI {
 
     public ReplayUI(ManagerUI ui) {
         this.ui = ui;
-        this.board = new Board(ui.op);
-        this.pgn = new PGN(board);
+        board = new BoardReplay(this);
+//        this.pgn = new PGN(board);
     }
 
 
-    @Override
     public void setup() {
+
+    }
+
+    @Override
+    public void tilePressed(int x, int y) {
 
     }
 }

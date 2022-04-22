@@ -1,13 +1,19 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.ArrayList;
+import java.util.Random;
 
 public class GameUI extends JPanel implements UI{
 
     ManagerUI ui;
     JLabel background;
-    Board board;
+    JLabel turnLabel;
+    JLabel turnOfLabel;
+    BoardGame board;
+    Tile[][] tiles = new Tile[8][8];
 
     Color light = new Color(180, 123, 0);
     Color lightDarker = light.darker().darker();
@@ -16,11 +22,10 @@ public class GameUI extends JPanel implements UI{
 
     public GameUI(ManagerUI ui) {
         this.ui = ui;
-        this.board = ui.op.board;
+        this.board = new BoardGame(this);
         setup();
     }
 
-    @Override
     public void setup() {
         setBounds(0,0,1366,768);
         setLayout(null);
@@ -60,6 +65,55 @@ public class GameUI extends JPanel implements UI{
         });
         add(buttonExit);
 
+        JLabel buttonCopy = new JLabel();
+        buttonCopy.setBounds(1040, 700, 240, 40);
+        buttonCopy.setBackground(Color.white);
+        buttonCopy.setOpaque(true);
+        buttonCopy.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+
+            }
+        });
+        add(buttonCopy);
+
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                tiles[i][j] = new Tile(this, i, j);
+                add(tiles[i][j]);
+            }
+        }
+        
+        turnLabel = new JLabel("999");
+        turnLabel.setBounds(1190, 25, 100, 50);
+        turnLabel.setFont(new Font("Zapfino", Font.BOLD, 25));
+        add(turnLabel);
+
+        turnOfLabel = new JLabel("White");
+        turnOfLabel.setBounds(1190, 73, 100, 50);
+        turnOfLabel.setFont(new Font("Zapfino", Font.BOLD, 25));
+        add(turnOfLabel);
+
         add(background);
     }
 
@@ -67,6 +121,11 @@ public class GameUI extends JPanel implements UI{
         add(background);
         repaint();
     }
+
+    public void putPiece(String piece, int x, int y) {
+        tiles[x][y].setPiece(piece);
+    }
+
 
     public void showPromotion(char color) {
         JLabel queen = new JLabel();
@@ -226,6 +285,46 @@ public class GameUI extends JPanel implements UI{
     }
 
 
+    @Override
+    public void tilePressed(int x, int y) {
+        if (tiles[x][y].isHighlighted) {
+            board.move(x, y);
+            resetHighlight();
+            return;
+        }
+        resetHighlight();
+        if (board.getColor(x, y) == board.turnOf) {
+            board.clickedOn[0] = x;
+            board.clickedOn[1] = y;
+            showMoves(x, y);
+        }
+    }
 
+    public void removePiece(int x, int y) {
+        tiles[x][y].removePiece();
+    }
 
+    private void showMoves(int x, int y) {
+        ArrayList<int[]> moves = board.movesWithoutCheck(x, y);
+        for (int[] move : moves) {
+            tiles[move[0]][move[1]].setDarker();
+        }
+    }
+
+    private void resetHighlight() {
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                tiles[i][j].setLigher();
+            }
+        }
+    }
+
+    public void updateText() {
+        turnLabel.setText(String.valueOf(board.turn/2 + 1));
+        if (board.turnOf == 'W') {
+            turnOfLabel.setText("White");
+        } else {
+            turnOfLabel.setText("Black");
+        }
+    }
 }

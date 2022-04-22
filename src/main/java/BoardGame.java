@@ -1,59 +1,50 @@
 import java.util.ArrayList;
-import java.util.Arrays;
 
-public class Board {
+public class BoardGame implements Board{
 
     Piece[][] pieces;
     Tile[][] tiles;
-    Operator op;
+    GameUI ui;
 
     boolean playable;
     int[] clickedOn = new int[2];
     char turnOf = 'W';
     boolean againstComputer;
     int turn;
+    int computerDifficulty;
 
-    Computer computer = new Computer(this, 'B', 2);
-
-
-
-
-
-    public Board(Operator op) {
-        this.op = op;
-        tiles = new Tile[8][8];
+    Computer computer;
+    public BoardGame(GameUI ui) {
+        this.ui = ui;
         pieces = new Piece[8][8];
         turn = 0;
         setup();
     }
 
-    private void setup() {
+    public void setup() {
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
-                tiles[i][j] = new Tile(this, i, j);
                 pieces[i][j] = null;
             }
         }
     }
 
-    public void drawTiles() {
-        for (int i = 0; i < 8; i++) {
-            for (int j = 0; j < 8; j++) {
-                op.ui.window.activePanel.add(tiles[i][j]);
+    public int boardHeuristic() {
+        int heuristic = 0;
+        for (int k = 0; k < 8; k++) {
+            for (int l = 0; l < 8; l++) {
+                if (getColor(k, l) == 'W') {
+                    heuristic -= heuristic(getPiece(k, l));
+                } else if (getColor(k, l) == 'B') {
+                    heuristic += heuristic(getPiece(k, l));
+                }
             }
         }
-    }
-
-    public void undrawTiles() {
-        for (int i = 0; i < 8; i++) {
-            for (int j = 0; j < 8; j++) {
-                op.ui.window.activePanel.remove(tiles[i][j]);
-            }
-        }
+        return heuristic;
     }
 
     public void putPiece(String piece, int x, int y) {
-        tiles[x][y].setPiece(piece);
+        ui.putPiece(piece, x, y);
         switch (piece.charAt(1)) {
             case 'P' -> pieces[x][y] = new Pawn(this, x, y, piece.charAt(0));
             case 'R' -> pieces[x][y] = new Rook(this, x, y, piece.charAt(0));
@@ -66,11 +57,12 @@ public class Board {
     }
 
     public void removePiece(int x, int y) {
-        tiles[x][y].removePiece();
+        ui.removePiece(x, y);
         pieces[x][y] = null;
     }
 
     public void setupClassic() {
+        computer = new Computer(this, 'B', computerDifficulty);
         char[] pieces = {'R', 'H', 'B', 'Q', 'K', 'B', 'H', 'R'};
         for (int i = 0; i < 8; i++) {
             putPiece('B' + "" + pieces[i], 0, i);
@@ -81,8 +73,9 @@ public class Board {
             putPiece("WP", 6, i);
             putPiece('W' + "" + pieces[i], 7, i);
         }
-        drawTiles();
         turnOf = 'W';
+        turn = 0;
+        ui.updateText();
     }
 
     public int heuristic(char piece) {
@@ -106,39 +99,7 @@ public class Board {
         return 0;
     }
 
-    public void tilePressed(int x, int y) {
-
-        if (!tiles[x][y].isHighlighted && getColor(x,y) != turnOf) {   // SWAP FOR TESTING
-            return;
-        }
-//        if (!tiles[x][y].isHighlighted && getColor(x,y) == 'N') {
-//            return;
-//        }
-
-        if (tiles[x][y].isHighlighted) {
-            resetColors();
-            move(x,y);
-            return;
-        }
-
-        resetColors();
-
-        ArrayList<int[]> moves = pieces[x][y].possibleMoves();
-        moves = movesWithoutCheck(moves, x, y);
-        clickedOn[0] = x;
-        clickedOn[1] = y;
-
-        for (int[] move : moves) {
-            tiles[move[0]][move[1]].setDarker();
-        }
-    }
-
     public void move(int x, int y) {
-
-        resetColors();
-
-        tiles[x][y].mouseOn();
-        tiles[clickedOn[0]][clickedOn[1]].mouseOn();
 
         if (getPiece(clickedOn[0], clickedOn[1]) == 'K' && Math.abs(clickedOn[1]-y) == 2) {
             castle(y);
@@ -149,7 +110,7 @@ public class Board {
 
 
         if (getPiece(x, y) == 'P' && (x == 0 || x == 7)) {
-            op.ui.game.showPromotion(turnOf);
+            ui.showPromotion(turnOf);
             turnOf = smallMove(turnOf);
         } else {
             endTurn();
@@ -201,24 +162,17 @@ public class Board {
             System.out.println("KONIEC HRY SOM NASIEL");
         }
 
-//        if (againstComputer && computer.getColor() == turnOf) {
+        if (againstComputer && computer.getColor() == turnOf) {
             computer.nextTurn();
-//        }
+        }
         turn++;
+        ui.updateText();
     }
 
     public void move(int fromX, int fromY, int toX, int toY) {
         clickedOn[0] = fromX;
         clickedOn[1] = fromY;
         move(toX, toY);
-    }
-
-    public void resetColors() {
-        for (int i = 0; i < 8; i++) {
-            for (int j = 0; j < 8; j++) {
-                tiles[i][j].setLigher();
-            }
-        }
     }
 
     public void setupPGN(int move) {

@@ -1,11 +1,9 @@
-import java.util.ArrayList;
-
 public class NextMoveEasy implements Runnable {
 
-    Board board;
+    BoardGame board;
     char color;
 
-    public NextMoveEasy(Board board, char color) {
+    public NextMoveEasy(BoardGame board, char color) {
         this.board = board;
         this.color = color;
     }

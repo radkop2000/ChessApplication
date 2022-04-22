@@ -24,10 +24,10 @@ public class Bishop implements Piece{
                 if (i == 0 || j == 0) {
                     continue;
                 }
-                while (x+i*mul < 8 && x+i*mul >= 0 && y+j*mul < 8 && y+j*mul >= 0 && board.pieces[x+i*mul][y+j*mul] == null) {
+                while (x+i*mul < 8 && x+i*mul >= 0 && y+j*mul < 8 && y+j*mul >= 0 && board.getPiece(x+i*mul, y+j*mul) == 'N') {
                     moves.add(new int[]{x+i*mul, y+j*mul++});
                 }
-                if (x+i*mul < 8 && x+i*mul >= 0 && y+j*mul < 8 && y+j*mul >= 0 && board.pieces[x+i*mul][y+j*mul] != null && board.pieces[x+i*mul][y+j*mul].getColor() != color) {
+                if (x+i*mul < 8 && x+i*mul >= 0 && y+j*mul < 8 && y+j*mul >= 0 && board.getPiece(x+i*mul, y+j*mul) != 'N' && board.getColor(x+i*mul, y+j*mul) != color) {
                     moves.add(new int[]{x+i*mul, y+j*mul});
                 }
                 mul = 1;

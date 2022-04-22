@@ -5,27 +5,26 @@ import java.awt.event.MouseListener;
 
 public class Tile extends JLabel {
 
-    Board board;
+    UI ui;
     int x;
     int y;
     boolean isLight;
     boolean isHighlighted;
+    boolean isYellow;
     Color light = new Color(180, 123, 0);
     Color lightDarker = light.darker().darker();
     Color dark = new Color(141, 97, 0);
     Color darkDarker = dark.darker().darker();
 
-    public Tile(Board board, int x, int y) {
-        this.board = board;
+    public Tile(UI ui, int x, int y) {
+        this.ui = ui;
         this.x = x;
         this.y = y;
         setBounds(220 + y * 94, 7 + x * 94, 88, 88);
         addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                if (board.playable) {
-                    board.tilePressed(x, y);
-                }
+                    ui.tilePressed(x, y);
             }
 
             @Override
@@ -62,6 +61,7 @@ public class Tile extends JLabel {
     public void setPiece(String piece) {
         ImageIcon icon = new ImageIcon("src/main/resources/Pieces/" + piece + ".png");
         setIcon(icon);
+        System.out.println("nastavujem");
     }
 
     public void removePiece() {
@@ -69,6 +69,9 @@ public class Tile extends JLabel {
     }
 
     public void mouseOn() {
+        if (isYellow) {
+            return;
+        }
         if (isLight) {
             setBackground(lightDarker);
         } else {
@@ -77,6 +80,9 @@ public class Tile extends JLabel {
     }
 
     public void mouseOff() {
+        if (isYellow) {
+            return;
+        }
         if (isHighlighted) {
             return;
         }
@@ -94,6 +100,7 @@ public class Tile extends JLabel {
             setBackground(darkDarker);
         }
         isHighlighted = true;
+        isYellow = false;
     }
 
     public void setLigher() {
@@ -103,6 +110,13 @@ public class Tile extends JLabel {
             setBackground(dark);
         }
         isHighlighted = false;
+        isYellow = false;
+    }
+
+    public void highlight() {
+        setBackground(Color.yellow);
+        isHighlighted = false;
+        isYellow = true;
     }
 
 }

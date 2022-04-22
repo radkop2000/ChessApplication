@@ -4,8 +4,6 @@ import java.awt.datatransfer.StringSelection;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -55,7 +53,7 @@ public class PGN {
     }
 
     public void updatePGN(int fromX, int fromY, int toX, int toY, boolean takes, char piece) {
-        // TODO
+
     }
 
     public void copyPGN() { // To clipboard

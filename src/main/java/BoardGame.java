@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-public class BoardGame implements Board{
+public class BoardGame implements Board {
 
     Piece[][] pieces;
     Tile[][] tiles;
@@ -14,6 +14,7 @@ public class BoardGame implements Board{
     int computerDifficulty;
 
     Computer computer;
+
     public BoardGame(GameUI ui) {
         this.ui = ui;
         pieces = new Piece[8][8];
@@ -101,8 +102,12 @@ public class BoardGame implements Board{
 
     public void move(int x, int y) {
 
-        if (getPiece(clickedOn[0], clickedOn[1]) == 'K' && Math.abs(clickedOn[1]-y) == 2) {
+        if (getPiece(clickedOn[0], clickedOn[1]) == 'K' && Math.abs(clickedOn[1] - y) == 2) {
             castle(y);
+        }
+
+        if (getPiece(clickedOn[0], clickedOn[1]) == 'P' && x != clickedOn[0] && y != clickedOn[1] && getColor(x,y) == 'N') {
+            enPassant(y);
         }
 
         putPiece(getColor(clickedOn[0], clickedOn[1]) + "" + getPiece(clickedOn[0], clickedOn[1]), x, y);
@@ -117,20 +122,25 @@ public class BoardGame implements Board{
         }
     }
 
+    private void enPassant(int y) {
+        putPiece("NN", clickedOn[0], clickedOn[1] - (clickedOn[1] - y));
+        System.out.println(clickedOn[0] + " " + (clickedOn[1] - (clickedOn[1] - y)));
+    }
+
     private void castle(int y) {
         System.out.println("CASTLING");
         if (clickedOn[0] == 0 && y == 2) {
             putPiece("BR", 0, 3);
-            removePiece(0,0);
+            removePiece(0, 0);
         } else if (clickedOn[0] == 0 && y == 6) {
             putPiece("BR", 0, 5);
-            removePiece(0,7);
+            removePiece(0, 7);
         } else if (clickedOn[0] == 7 && y == 2) {
             putPiece("WR", 7, 3);
-            removePiece(7,0);
-        }else if (clickedOn[0] == 7 && y == 6) {
+            removePiece(7, 0);
+        } else if (clickedOn[0] == 7 && y == 6) {
             putPiece("WR", 7, 5);
-            removePiece(7,7);
+            removePiece(7, 7);
         } else {
             System.out.println("OOF");
         }
@@ -197,7 +207,7 @@ public class BoardGame implements Board{
     public boolean isCheckMate() {
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
-                if (getColor(i,j) == turnOf && movesWithoutCheck(pieces[i][j].possibleMoves(), i, j).size() > 0) {
+                if (getColor(i, j) == turnOf && movesWithoutCheck(pieces[i][j].possibleMoves(), i, j).size() > 0) {
                     return false;
                 }
             }
@@ -229,12 +239,12 @@ public class BoardGame implements Board{
             int[] king = findKing(color);
             for (int i = 0; i < 8; i++) {
                 for (int j = 0; j < 8; j++) {
-                    if (getColor(i,j) == not(color)) {
+                    if (getColor(i, j) == not(color)) {
                         ArrayList<int[]> opMoves = pieces[i][j].possibleMoves();
                         if (opMoves.size() == 0) {
                             break;
                         }
-                        for (int[] opMove: opMoves) {
+                        for (int[] opMove : opMoves) {
                             if (opMove[0] == king[0] && opMove[1] == king[1]) {
                                 isCheck = true;
                                 break;
@@ -250,22 +260,19 @@ public class BoardGame implements Board{
             pieces[move[0]][move[1]] = temp2;
         }
 
-
-
         return newMoves;
     }
 
     public int[] findKing(char color) {
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
-                if (pieces[i][j] != null && getColor(i, j) == color && getPiece(i,j) == 'K') {
-                    return new int[]{i,j};
+                if (pieces[i][j] != null && getColor(i, j) == color && getPiece(i, j) == 'K') {
+                    return new int[]{i, j};
                 }
             }
         }
-        return new int[]{-1,-1};
+        return new int[]{-1, -1};
     }
-
 
 
     public char getColor(Piece piece) {

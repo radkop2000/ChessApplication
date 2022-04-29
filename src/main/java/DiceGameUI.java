@@ -9,6 +9,7 @@ import java.util.Random;
 public class DiceGameUI extends JPanel implements UI{
 
     ManagerUI ui;
+    JLabel rules;
     JLabel background;
     JLabel turnLabel;
     JLabel turnOfLabel;
@@ -34,11 +35,11 @@ public class DiceGameUI extends JPanel implements UI{
 
         background = new JLabel();
         background.setBounds(0,0,1366,768);
-        ImageIcon backgroundIcon = new ImageIcon("src/main/resources/MenuPlay.png");
+        ImageIcon backgroundIcon = new ImageIcon("src/main/resources/GameMode.png");
         background.setIcon(backgroundIcon);
 
         JLabel buttonExit = new JLabel();
-        buttonExit.setBounds(1040, 566, 243, 39);
+        buttonExit.setBounds(1040, 684, 110, 40);
         buttonExit.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -67,14 +68,15 @@ public class DiceGameUI extends JPanel implements UI{
         });
         add(buttonExit);
 
-        JLabel buttonCopy = new JLabel();
-        buttonCopy.setBounds(1040, 700, 240, 40);
-        buttonCopy.setBackground(Color.white);
-        buttonCopy.setOpaque(true);
-        buttonCopy.addMouseListener(new MouseListener() {
+        rules = new JLabel();
+        rules.setBounds(0,0,1366,768);
+        ImageIcon rulesIcon = new ImageIcon("src/main/resources/MenuMain.png");
+        rules.setIcon(rulesIcon);
+        rules.setVisible(false);
+        rules.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
-
+                rules.setVisible(false);
             }
 
             @Override
@@ -97,7 +99,37 @@ public class DiceGameUI extends JPanel implements UI{
 
             }
         });
-        add(buttonCopy);
+        add(rules);
+
+        JLabel buttonRules = new JLabel();
+        buttonRules.setBounds(1040, 147, 120, 40);
+        buttonRules.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                rules.setVisible(true);
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+
+            }
+        });
+        add(buttonRules);
 
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {

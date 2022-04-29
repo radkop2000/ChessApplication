@@ -61,7 +61,6 @@ public class Tile extends JLabel {
     public void setPiece(String piece) {
         ImageIcon icon = new ImageIcon("src/main/resources/Pieces/" + piece + ".png");
         setIcon(icon);
-        System.out.println("nastavujem");
     }
 
     public void removePiece() {

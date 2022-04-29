@@ -1,6 +1,6 @@
 
 public interface UI {
 
-    public void setup();
+    public void tilePressed(int x, int y);
 
 }

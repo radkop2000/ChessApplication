@@ -1,51 +1,18 @@
-
-public class Board {
-
-    private Piece[][] pieces;
-    private Tile[][] tiles;
-    private Operator op;
-
-    public Board(Operator op) {
-        this.op = op;
-        setupTiles();
-    }
-
-    public void setupTiles() {
-        // TODO
-    }
-
-    public void setupClassic() {
-        // TODO
-    }
-
-    public void setupPGN(int move) {
-        // TODO (if move == -1 => setup until end)
-    }
-
-    public void drawPieces() {
-        // TODO
-    }
-
-    public String getPiece(int x, int y) {
-        // TODO
-        return null;
-    }
-
-    public char getColor(int x, int y) {
-        // TODO
-        return ' ';
-    }
+public interface Board {
 
 
-    public void tileClicked(int x, int y) {
-        // TODO
-    }
+    void setup();
 
-    public boolean isCheckMate() {
-        // TODO
-        return false;
-    }
+    void putPiece(String piece, int x, int y);
 
+    void removePiece(int x, int y);
 
+    void setupClassic();
+
+    char getPiece(int x, int y);
+
+    char getColor(int x, int y);
+
+    char not(char color);
 
 }

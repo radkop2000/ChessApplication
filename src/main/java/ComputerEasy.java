@@ -1,14 +1,19 @@
-public class ComputerEasy implements Computer{
-
-    Chess ch;
-    Board board;
-
-    public ComputerEasy(Chess ch, Board board) {
-        this.ch = ch;
-    }
-
-    @Override
-    public void nextTurn() {
-        // TODO
-    }
-}
+//public class ComputerEasy implements Computer{
+//
+//    Board board;
+//    char color;
+//
+//    public ComputerEasy(Board board) {
+//        this.board = board;
+//    }
+//
+//    @Override
+//    public void nextTurn() {
+//        // TODO
+//    }
+//
+//    @Override
+//    public char getColor() {
+//        return color;
+//    }
+//}

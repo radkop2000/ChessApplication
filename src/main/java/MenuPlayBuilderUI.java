@@ -1,6 +1,6 @@
 import javax.swing.*;
 
-public class MenuPlayBuilderUI extends JPanel implements UI{
+public class MenuPlayBuilderUI extends JPanel{
 
     ManagerUI ui;
 
@@ -9,7 +9,7 @@ public class MenuPlayBuilderUI extends JPanel implements UI{
         setup();
     }
 
-    @Override
+
     public void setup() {
 
     }

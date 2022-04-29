@@ -17,8 +17,23 @@ public class Bishop implements Piece{
 
     @Override
     public ArrayList<int[]> possibleMoves() {
-        // TODO
-        return null;
+        ArrayList<int[]> moves = new ArrayList<>();
+        int mul = 1;
+        for (int i = -1; i <= 1; i++) {
+            for (int j = -1; j <= 1; j++) {
+                if (i == 0 || j == 0) {
+                    continue;
+                }
+                while (x+i*mul < 8 && x+i*mul >= 0 && y+j*mul < 8 && y+j*mul >= 0 && board.getPiece(x+i*mul, y+j*mul) == 'N') {
+                    moves.add(new int[]{x+i*mul, y+j*mul++});
+                }
+                if (x+i*mul < 8 && x+i*mul >= 0 && y+j*mul < 8 && y+j*mul >= 0 && board.getPiece(x+i*mul, y+j*mul) != 'N' && board.getColor(x+i*mul, y+j*mul) != color) {
+                    moves.add(new int[]{x+i*mul, y+j*mul});
+                }
+                mul = 1;
+            }
+        }
+        return moves;
     }
 
     @Override

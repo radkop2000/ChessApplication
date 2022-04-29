@@ -17,8 +17,47 @@ public class Pawn implements Piece{
 
     @Override
     public ArrayList<int[]> possibleMoves() {
-        // TODO
-        return null;
+        ArrayList<int[]> moves = new ArrayList<>();
+
+        if (color == 'W') {
+            if (x - 1 >= 0 && board.getColor(x - 1, y) == 'N') {
+                moves.add(new int[]{x - 1, y});
+                if (x == 6 && board.getColor(x - 2, y) == 'N') {
+                    moves.add(new int[]{x - 2, y});
+                }
+            }
+            for (int i = -1; i <= 1; i += 2) {
+                if (x-1 >= 0 && y+i >= 0 && y+i < 8 && board.getColor(x-1,y+i) == 'B') {
+                    moves.add(new int[]{x-1,y+i});
+                }
+            }
+            if (x == 3 && y > 0 && board.getPiece(3,y-1) == 'P' && board.getColor(3, y-1) == 'B') {
+                    moves.add(new int[]{2,y-1});
+            }
+            if (x == 3 && y < 7 && board.getPiece(3,y+1) == 'P' && board.getColor(3, y+1) == 'B') {
+                    moves.add(new int[]{2,y+1});
+            }
+        } else {
+            if (x + 1 < 8 && board.getColor(x + 1, y) == 'N') {
+                moves.add(new int[]{x + 1, y});
+                if (x == 1 && board.getColor(x + 2, y) == 'N') {
+                    moves.add(new int[]{x + 2, y});
+                }
+            }
+            for (int i = -1; i <= 1; i += 2) {
+                if (x+1 < 8 && y+i >= 0 && y+i < 8 && board.getColor(x+1,y+i) == 'W') {
+                    moves.add(new int[]{x+1,y+i});
+                }
+            }
+            if (x == 4 && y > 0 && board.getPiece(4,y-1) == 'P' && board.getColor(4, y-1) == 'W') {
+                moves.add(new int[]{5,y-1});
+            }
+            if (x == 4 && y < 7 && board.getPiece(4,y+1) == 'P' && board.getColor(4, y+1) == 'W') {
+                moves.add(new int[]{5,y+1});
+            }
+        }
+
+        return moves;
     }
 
     @Override

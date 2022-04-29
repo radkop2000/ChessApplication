@@ -6,7 +6,6 @@ import java.awt.event.MouseListener;
 public class MenuPlayUI extends JPanel{
 
     ManagerUI ui;
-    boolean isComputer;
     JLabel background;
 
     public MenuPlayUI(ManagerUI ui) {
@@ -18,48 +17,18 @@ public class MenuPlayUI extends JPanel{
 
         setBounds(0,0,1366,768);
         setLayout(null);
-        isComputer = true;
 
         background = new JLabel();
         background.setBounds(0,0,1366,768);
-        ImageIcon backgroundIcon = new ImageIcon("src/main/resources/MenuPlayComputer.png");
+        ImageIcon backgroundIcon = new ImageIcon("src/main/resources/MenuPlayPlayer.png");
         background.setIcon(backgroundIcon);
 
-        JLabel buttonChanger = new JLabel();
-        buttonChanger.setBounds(75, 351, 267, 50);
-        buttonChanger.addMouseListener(new MouseListener() {
+        JLabel buttonPlayer = new JLabel();
+        buttonPlayer.setBounds(75, 351, 267, 50);
+        buttonPlayer.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                changeAgainst();
-            }
-
-            @Override
-            public void mousePressed(MouseEvent e) {
-
-            }
-
-            @Override
-            public void mouseReleased(MouseEvent e) {
-
-            }
-
-            @Override
-            public void mouseEntered(MouseEvent e) {
-
-            }
-
-            @Override
-            public void mouseExited(MouseEvent e) {
-
-            }
-        });
-        add(buttonChanger);
-
-        JLabel buttonClassic = new JLabel();
-        buttonClassic.setBounds(75, 412, 277, 45);
-        buttonClassic.addMouseListener(new MouseListener() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
+                ui.game.board.againstComputer = false;
                 ui.showPanel(ManagerUI.GAME);
                 ui.game.board.setupClassic();
                 ui.game.redrawBackground();
@@ -86,7 +55,41 @@ public class MenuPlayUI extends JPanel{
 
             }
         });
-        add(buttonClassic);
+        add(buttonPlayer);
+
+        JLabel buttonComputer = new JLabel();
+        buttonComputer.setBounds(75, 412, 277, 45);
+        buttonComputer.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                ui.game.board.againstComputer = true;
+                ui.showPanel(ManagerUI.GAME);
+                ui.game.board.setupClassic();
+                ui.game.redrawBackground();
+                ui.op.window.repaint();
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+
+            }
+        });
+        add(buttonComputer);
 
         JLabel buttonPGN = new JLabel();
         buttonPGN.setBounds(75, 470, 350, 45);
@@ -183,17 +186,4 @@ public class MenuPlayUI extends JPanel{
         repaint();
     }
 
-    private void changeAgainst() {
-
-        if (isComputer) {
-            ui.game.board.againstComputer = false;
-            ImageIcon icon = new ImageIcon("src/main/resources/MenuPlayPlayer.png");
-            background.setIcon(icon);
-        } else {
-            ui.game.board.againstComputer = true;
-            ImageIcon icon = new ImageIcon("src/main/resources/MenuPlayComputer.png");
-            background.setIcon(icon);
-        }
-        isComputer = !isComputer;
-    }
 }

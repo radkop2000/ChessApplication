@@ -20,10 +20,6 @@ public class MenuMainUI extends JPanel{
         ImageIcon backgroundIcon = new ImageIcon("src/main/resources/MenuMain.png");
         background.setIcon(backgroundIcon);
 
-        JButton button = new JButton("DICE GAMEMODE");
-        button.setBounds(100,100,100,50);
-        button.addActionListener(e -> ui.showPanel(ManagerUI.DICE));
-        add(button);
 
         JLabel buttonStart = new JLabel();
         buttonStart.setBounds(80, 355, 90, 45);
@@ -55,8 +51,38 @@ public class MenuMainUI extends JPanel{
                                      });
                 add(buttonStart);
 
+        JLabel button = new JLabel();
+        button.setBounds(80,408,240,42);
+        button.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                ui.showPanel(ManagerUI.DICE);
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+
+            }
+        });
+        add(button);
+
         JLabel buttonReplay = new JLabel();
-        buttonReplay.setBounds(80, 406, 289, 53);
+        buttonReplay.setBounds(80, 472, 289, 53);
         buttonReplay.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -86,7 +112,7 @@ public class MenuMainUI extends JPanel{
         add(buttonReplay);
 
         JLabel buttonSettings = new JLabel();
-        buttonSettings.setBounds(80, 470, 157, 50);
+        buttonSettings.setBounds(80, 527, 157, 50);
         buttonSettings.addMouseListener(new MouseListener() {
 
             @Override
@@ -117,7 +143,7 @@ public class MenuMainUI extends JPanel{
         add(buttonSettings);
 
         JLabel buttonExit = new JLabel();
-        buttonExit.setBounds(80, 527, 85, 45);
+        buttonExit.setBounds(80, 582, 85, 45);
         buttonExit.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {

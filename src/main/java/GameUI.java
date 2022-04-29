@@ -3,6 +3,7 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -19,6 +20,8 @@ public class GameUI extends JPanel implements UI{
     Color lightDarker = light.darker().darker();
     Color dark = new Color(141, 97, 0);
     Color darkDarker = dark.darker().darker();
+
+
 
     public GameUI(ManagerUI ui) {
         this.ui = ui;
@@ -60,7 +63,7 @@ public class GameUI extends JPanel implements UI{
 
             @Override
             public void mouseExited(MouseEvent e) {
-
+                board.pgn.nextMove();
             }
         });
         add(buttonExit);
@@ -72,7 +75,7 @@ public class GameUI extends JPanel implements UI{
         buttonCopy.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
-
+                board.pgn.copyPGN();
             }
 
             @Override
@@ -96,6 +99,40 @@ public class GameUI extends JPanel implements UI{
             }
         });
         add(buttonCopy);
+
+        JLabel buttonUndo = new JLabel();
+        buttonUndo.setBounds(1044, 464, 284, 40);
+        buttonUndo.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (board.againstComputer) {
+                    board.pgn.moveToDelete(board.turn-2);
+                } else {
+                    board.pgn.moveToDelete(board.turn-1);
+                }
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+
+            }
+        });
+        add(buttonUndo);
 
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
@@ -125,7 +162,6 @@ public class GameUI extends JPanel implements UI{
     public void putPiece(String piece, int x, int y) {
         tiles[x][y].setPiece(piece);
     }
-
 
     public void showPromotion(char color) {
         JLabel queen = new JLabel();

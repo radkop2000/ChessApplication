@@ -37,7 +37,7 @@ public class ReplayUI extends JPanel implements UI {
         tiles = new Tile[8][8];
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j <8; j++) {
-                tiles[i][j] = new Tile(this, i, j);
+                tiles[i][j] = new Tile(this, i, j, board);
                 add(tiles[i][j]);
             }
         }
@@ -190,6 +190,17 @@ public class ReplayUI extends JPanel implements UI {
     @Override
     public void tilePressed(int x, int y) {}
 
+    @Override
+    public Component getComp() {
+        return this;
+    }
+
+    @Override
+    public boolean getDev() {
+        return ui.op.dev;
+    }
+
+
     public void showMessage(String message, int seconds) {
         Runnable runnable = new Message(this.message, message, seconds);
         Thread thread = new Thread(runnable);
@@ -218,7 +229,7 @@ public class ReplayUI extends JPanel implements UI {
             if (jump < 0) {
                 throw new IllegalArgumentException();
             }
-            board.pgn.moveTo(jump);
+            board.pgn.moveTo(jump*2-1);
         } catch (Exception e) {
             if (jumpTo.toLowerCase(Locale.ROOT).equals("end")) {
                 board.pgn.moveToEnd();

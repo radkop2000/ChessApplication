@@ -1,4 +1,6 @@
 import javax.swing.*;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 public class MenuReplayUI extends JPanel {
 
@@ -48,6 +50,34 @@ public class MenuReplayUI extends JPanel {
         });
         add(loadButton);
 
+        JLabel backButton = new JLabel();
+        backButton.setBounds(635,687, 108, 48);
+        backButton.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                ui.showPanel(ManagerUI.MENU_MAIN);
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+
+            }
+        });
 
         add(background);
         repaint();

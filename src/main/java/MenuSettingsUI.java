@@ -1,6 +1,10 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 
 public class MenuSettingsUI extends JPanel{
 
@@ -15,6 +19,7 @@ public class MenuSettingsUI extends JPanel{
     JButton buttonClock;
     JLabel buttonBack;
     JLabel buttonDefault;
+    JButton buttonClockTime;
 
     public MenuSettingsUI(ManagerUI ui) {
         this.ui = ui;
@@ -66,6 +71,15 @@ public class MenuSettingsUI extends JPanel{
         });
         setClockText();
         add(buttonClock);
+
+        buttonClockTime = new JButton("");
+        buttonClockTime.setBounds(100, 550, 250, 40);
+        buttonClockTime.addActionListener(e -> {
+            ui.op.clockTime = (ui.op.clockTime + 1) % 6;
+            setClockTime();
+        });
+        setClockTime();
+        add(buttonClockTime);
 
 
         buttonBack = new JLabel();
@@ -172,7 +186,23 @@ public class MenuSettingsUI extends JPanel{
     }
 
     public void save() {
-        // TODO
+        BufferedWriter writer;
+        String str = String.format("""
+                dev %d
+                computerDifficulty %d
+                gameMode %d
+                clock %d
+                clockTime %d
+                """, ui.op.dev ? 1 : 0, ui.op.computerDifficulty, ui.op.gameMode, ui.op.clock ? 1 : 0, ui.op.clockTime);
+        try {
+            writer = new BufferedWriter(new FileWriter("src/main/java/config.txt"));
+            writer.write(str);
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
     }
 
     public void resetSettings() {
@@ -180,10 +210,17 @@ public class MenuSettingsUI extends JPanel{
         ui.op.computerDifficulty = 0;
         ui.op.gameMode = 0;
         ui.op.clock = false;
+        ui.op.clockTime = 0;
         setDevText();
         setComputerText();
         setModeText();
         setClockText();
+        setClockTime();
+    }
+
+    public void setClockTime() {
+        int[] time = {1,3,5,10,15,60};
+        buttonClockTime.setText("Time on clock: " + time[ui.op.clockTime] + " minutes");
     }
 
 

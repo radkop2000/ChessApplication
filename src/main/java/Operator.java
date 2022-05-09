@@ -16,6 +16,7 @@ public class Operator {
     int computerDifficulty;
     int gameMode;
     boolean clock;
+    int clockTime; // 1,3,5,10,15,60
 
     public Operator() {
 
@@ -63,9 +64,13 @@ public class Operator {
         dev = Integer.parseInt(dict.get("dev")) == 1;
         computerDifficulty = Integer.parseInt(dict.get("computerDifficulty"));
         gameMode = Integer.parseInt(dict.get("gameMode"));
+        clock = Integer.parseInt(dict.get("clock")) == 1;
+        clockTime = Integer.parseInt(dict.get("clockTime"));
         System.out.println(dev);
         System.out.println(computerDifficulty);
         System.out.println(gameMode);
+        System.out.println(clock);
+        System.out.println(clockTime);
 //        System.out.println(dict);
 
     }

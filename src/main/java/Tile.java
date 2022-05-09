@@ -1,5 +1,6 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
@@ -15,16 +16,37 @@ public class Tile extends JLabel {
     Color lightDarker = light.darker().darker();
     Color dark = new Color(141, 97, 0);
     Color darkDarker = dark.darker().darker();
+    JPopupMenu devMenu;
+    Board board;
 
-    public Tile(UI ui, int x, int y) {
+    public Tile(UI ui, int x, int y, Board board) {
         this.ui = ui;
         this.x = x;
         this.y = y;
+        this.board = board;
+
+        ActionListener handler = new devHandler(board);
+        JMenuItem[] items = new JMenuItem[12];
+        String[] pieces = {"WP", "WH", "WB", "WR", "WQ", "WK", "BP", "BH", "BB", "BR", "BQ", "BK"};
+
+        devMenu = new JPopupMenu();
+
+        for (int i = 0; i < 12; i++) {
+            items[i] = new JMenuItem(pieces[i]);
+            items[i].addActionListener(handler);
+            items[i].setActionCommand(pieces[i] + x + "" + y);
+            devMenu.add(items[i]);
+        }
+
         setBounds(220 + y * 94, 7 + x * 94, 88, 88);
         addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
+                if (SwingUtilities.isRightMouseButton(e) && ui.getDev()) {
+                    devMenu.show(ui.getComp(), e.getX() + 220 + y * 94, e.getY() + 7 + x * 94);
+                } else {
                     ui.tilePressed(x, y);
+                }
             }
 
             @Override
@@ -110,6 +132,12 @@ public class Tile extends JLabel {
         }
         isHighlighted = false;
         isYellow = false;
+    }
+
+    public void setLighterNoYellow() {
+        if (!isYellow) {
+            setLigher();
+        }
     }
 
     public void highlight() {

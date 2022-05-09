@@ -148,8 +148,12 @@ public class BoardDice implements Board{
     private char smallMove(char move) {
         if (move == 'W') {
             return 'w';
-        } else {
+        } else if (move == 'B') {
             return 'b';
+        } else if (move == 'w') {
+            return 'W';
+        } else {
+            return 'B';
         }
     }
 
@@ -162,10 +166,14 @@ public class BoardDice implements Board{
                 putPiece("B" + toPiece, 7, i);
             }
         }
+        endTurn();
     }
 
     public void endTurn() {
+
         turnOf = not(turnOf);
+
+        generateNextMove();
 
         if (isCheckMate()) {
             System.out.println("KONIEC HRY SOM NASIEL");
@@ -174,10 +182,10 @@ public class BoardDice implements Board{
         turn++;
         ui.updateText();
 
-
     }
 
     public void generateNextMove() {
+
         Random rand = new Random();
 
         if (ui.mode == 2) {
@@ -217,7 +225,9 @@ public class BoardDice implements Board{
             for (int i = 0; i < 8; i++) {
                 for (int j = 0; j < 8; j++) {
                     if (getPiece(i, j) == nextMoveC && getColor(i, j) == turnOf) {
-                        ui.tiles[i][j].highlight();
+                        if (movesWithoutCheck(i,j).size() > 0) {
+                            ui.tiles[i][j].highlight();
+                        }
                     }
                 }
             }

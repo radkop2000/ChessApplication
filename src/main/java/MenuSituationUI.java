@@ -61,6 +61,8 @@ public class MenuSituationUI extends JPanel implements UI{
                     ui.game.board.againstComputer = false;
                     ui.showPanel(ManagerUI.GAME);
                     ui.game.board.setupBoard(board);
+                    ui.game.updateText();
+                    ui.game.builder = true;
                 } else {
                     showMessage("You need both White and Black king to play", 4);
                 }
@@ -236,5 +238,14 @@ public class MenuSituationUI extends JPanel implements UI{
             }
         }
         return false;
+    }
+
+    public void resetBoard() {
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                board[i][j] = null;
+                tiles[i][j].removePiece();
+            }
+        }
     }
 }

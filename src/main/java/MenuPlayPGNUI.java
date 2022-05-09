@@ -1,4 +1,9 @@
 import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.filechooser.FileSystemView;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.IOException;
 
 public class MenuPlayPGNUI extends JPanel {
 
@@ -6,6 +11,7 @@ public class MenuPlayPGNUI extends JPanel {
     JLabel background;
     JTextArea textArea;
     JButton loadButton;
+    JFileChooser fileChooser;
 
     public MenuPlayPGNUI(ManagerUI ui) {
         this.ui = ui;
@@ -43,11 +49,33 @@ public class MenuPlayPGNUI extends JPanel {
         loadButton.setBounds(352, 645, 160, 60);
         loadButton.addActionListener(e -> {
             ui.showPanel(ManagerUI.GAME);
+            ui.game.builder = false;
             ui.game.board.pgn.loadPGNFromString(textArea.getText());
             ui.game.board.setupPGN();
         });
         add(loadButton);
 
+        fileChooser = new JFileChooser("src/main/pgnFiles", FileSystemView.getFileSystemView());
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("pgn","pgn");
+        fileChooser.setFileFilter(filter);
+        add(fileChooser);
+
+        JButton buttonChooser = new JButton("Choose PGN file");
+        buttonChooser.setBounds(830, 420, 240, 140);
+        buttonChooser.addActionListener(e -> {
+            int r = fileChooser.showOpenDialog(null);
+            if (r == JFileChooser.APPROVE_OPTION) {
+                ui.showPanel(ManagerUI.GAME);
+                ui.game.builder = false;
+                try {
+                    ui.game.board.pgn.loadPGNFromFile(fileChooser.getSelectedFile().getAbsolutePath());
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
+                ui.game.board.setupPGN();
+            }
+        });
+        add(buttonChooser);
 
         add(background);
         repaint();

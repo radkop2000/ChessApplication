@@ -2,6 +2,7 @@ import java.awt.*;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -142,6 +143,7 @@ public class PGN {
         String str = getPGN();
         Date date = new Date();
         DateFormat format = new SimpleDateFormat("dd.MM.yyyy-HH:mm");
+        new File("src/opinarium3/media/presentaciones/"+format.format(date)+"/comments/");
         BufferedWriter writer = new BufferedWriter(new FileWriter("src/main/pgnFiles/" + format.format(date) + ".pgn"));
         writer.write(str);
         writer.close();
@@ -150,6 +152,7 @@ public class PGN {
     public void loadPGNFromFile(String fileName) throws IOException {
         Path path = Paths.get(fileName);
         loadPGNFromString(Files.readString(path));
+        System.out.println(Files.readString(path));
     }
 
     public void loadPGNFromString(String pgn) {

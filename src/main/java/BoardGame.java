@@ -16,6 +16,7 @@ public class BoardGame implements Board {
     Computer computer;
 
     public BoardGame(GameUI ui) {
+        computerDifficulty = ui.ui.op.computerDifficulty;
         this.ui = ui;
         pieces = new Piece[8][8];
         turn = 0;
@@ -297,6 +298,14 @@ public class BoardGame implements Board {
 
     public int getRound() {
         return turn;
+    }
+
+    public void setupBoard(String[][] board) {
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                putPiece(board[i][j] == null ? "NN" : board[i][j], i, j);
+            }
+        }
     }
 
 

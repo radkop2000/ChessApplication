@@ -280,6 +280,16 @@ public class BoardDice implements Board{
         return 0;
     }
 
+    @Override
+    public int getClockTime() {
+        return ui.ui.op.clockTime;
+    }
+
+    @Override
+    public void endGameTime(char color) {
+        // TODO
+    }
+
     public ArrayList<int[]> movesWithoutCheck(ArrayList<int[]> moves, int fromX, int fromY) {
 
 

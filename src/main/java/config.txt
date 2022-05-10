@@ -1,5 +1,5 @@
 dev 0
 computerDifficulty 0
 gameMode 0
-clock 0
-clockTime 5
+clock 1
+clockTime 2

@@ -25,4 +25,8 @@ public interface Board {
 
     int getRound();
 
+    int getClockTime();
+
+    void endGameTime(char color);
+
 }

@@ -5,20 +5,21 @@ public class BoardGame implements Board {
     Piece[][] pieces;
     GameUI ui;
     PGN pgn = new PGN(this);
+    Runnable clock;
 
     boolean playable;
     int[] clickedOn = new int[2];
     char turnOf = 'W';
     boolean againstComputer;
     int turn;
-    int computerDifficulty;
 
     Computer computer;
+    Thread thread;
 
     public BoardGame(GameUI ui) {
-        computerDifficulty = ui.ui.op.computerDifficulty;
         this.ui = ui;
         pieces = new Piece[8][8];
+        clock = new Clock(this, ui);
         turn = 0;
         setup();
     }
@@ -64,7 +65,7 @@ public class BoardGame implements Board {
     }
 
     public void setupClassic() {
-        computer = new Computer(this, 'B', computerDifficulty);
+        computer = new Computer(this, 'B', ui.ui.op.computerDifficulty);
         char[] pieces = {'R', 'H', 'B', 'Q', 'K', 'B', 'H', 'R'};
         for (int i = 0; i < 8; i++) {
             putPiece('B' + "" + pieces[i], 0, i);
@@ -99,6 +100,16 @@ public class BoardGame implements Board {
             }
         }
         return 0;
+    }
+
+    public void startClock() {
+        if (ui.ui.op.clock) {
+            if (thread != null) {
+                thread.stop();
+            }
+            thread = new Thread(clock);
+            thread.start();
+        }
     }
 
 
@@ -298,6 +309,17 @@ public class BoardGame implements Board {
 
     public int getRound() {
         return turn;
+    }
+
+    @Override
+    public int getClockTime() {
+        int[] time = {1,3,5,10,15,60};
+        return time[ui.ui.op.clockTime];
+    }
+
+    @Override
+    public void endGameTime(char color) {
+        // TODO
     }
 
     public void setupBoard(String[][] board) {

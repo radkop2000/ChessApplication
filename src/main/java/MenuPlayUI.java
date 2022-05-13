@@ -29,6 +29,7 @@ public class MenuPlayUI extends JPanel{
             @Override
             public void mouseClicked(MouseEvent e) {
                 ui.game.board.againstComputer = false;
+                ui.game.builder = false;
                 ui.showPanel(ManagerUI.GAME);
                 ui.game.board.setupClassic();
                 ui.game.redrawBackground();
@@ -63,6 +64,7 @@ public class MenuPlayUI extends JPanel{
             @Override
             public void mouseClicked(MouseEvent e) {
                 ui.game.board.againstComputer = true;
+                ui.game.builder = false;
                 ui.showPanel(ManagerUI.GAME);
                 ui.game.board.setupClassic();
                 ui.game.redrawBackground();

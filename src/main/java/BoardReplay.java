@@ -178,4 +178,14 @@ public class BoardReplay implements Board{
     public int getRound() {
         return turn;
     }
+
+    @Override
+    public int getClockTime() {
+        return ui.ui.op.clockTime;
+    }
+
+    @Override
+    public void endGameTime(char color) {
+        // TODO
+    }
 }

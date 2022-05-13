@@ -1,0 +1,6 @@
+dev 0
+computerDifficulty 2
+gameMode 1
+clock 1
+clockTime 0
+animation 1

@@ -13,10 +13,11 @@ public class DiceGameUI extends JPanel implements UI{
     JLabel background;
     JLabel turnLabel;
     JLabel turnOfLabel;
+    JLabel message;
     BoardDice board;
     Tile[][] tiles = new Tile[8][8];
 
-    int mode = 2; // 0 for type of piece, 1 for exact piece, 2 for random
+
 
     Color light = new Color(180, 123, 0);
     Color lightDarker = light.darker().darker();
@@ -25,13 +26,26 @@ public class DiceGameUI extends JPanel implements UI{
 
     public DiceGameUI(ManagerUI ui) {
         this.ui = ui;
-        this.board = new BoardDice(this);
         setup();
+        this.board = new BoardDice(this);
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                tiles[i][j] = new Tile(this, i, j, board);
+                add(tiles[i][j]);
+            }
+        }
+        add(background);
     }
 
     public void setup() {
         setBounds(0,0,1366,768);
         setLayout(null);
+
+        message = new JLabel("", SwingConstants.CENTER);
+        message.setBounds(0, 768/2-30, 1366, 60);
+        message.setForeground(Color.red.darker());
+        message.setFont(new Font("Arial", Font.BOLD, 50));
+        add(message);
 
         background = new JLabel();
         background.setBounds(0,0,1366,768);
@@ -70,7 +84,7 @@ public class DiceGameUI extends JPanel implements UI{
 
         rules = new JLabel();
         rules.setBounds(0,0,1366,768);
-        ImageIcon rulesIcon = new ImageIcon("src/main/resources/MenuMain.png");
+        ImageIcon rulesIcon = new ImageIcon("src/main/resources/gameModeRules.png");
         rules.setIcon(rulesIcon);
         rules.setVisible(false);
         rules.addMouseListener(new MouseListener() {
@@ -131,12 +145,7 @@ public class DiceGameUI extends JPanel implements UI{
         });
         add(buttonRules);
 
-        for (int i = 0; i < 8; i++) {
-            for (int j = 0; j < 8; j++) {
-                tiles[i][j] = new Tile(this, i, j);
-                add(tiles[i][j]);
-            }
-        }
+
 
         turnLabel = new JLabel("999");
         turnLabel.setBounds(1190, 25, 100, 50);
@@ -148,7 +157,7 @@ public class DiceGameUI extends JPanel implements UI{
         turnOfLabel.setFont(new Font("Zapfino", Font.BOLD, 25));
         add(turnOfLabel);
 
-        add(background);
+
     }
 
     public void redrawBackground() {
@@ -315,33 +324,56 @@ public class DiceGameUI extends JPanel implements UI{
         remove(bishop);
         remove(horse);
         repaint();
-        board.endTurn();
     }
 
 
     @Override
     public void tilePressed(int x, int y) {
         if (tiles[x][y].isHighlighted) {
-            board.move(x, y);
             resetHighlight();
-            board.generateNextMove();
-            if (mode == 1 || board.mode == 1) {
-                board.clickedOn[0] = board.nextMoveXY[0];
-                board.clickedOn[1] = board.nextMoveXY[1];
-                showMoves(board.clickedOn[0], board.clickedOn[1]);
+            board.move(x, y);
+//            if (ui.op.gameMode == 1 || board.mode == 1) {
+//                board.clickedOn[0] = board.nextMoveXY[0];
+//                board.clickedOn[1] = board.nextMoveXY[1];
+//                showMoves(board.clickedOn[0], board.clickedOn[1]);
+//            }
+        } else if (tiles[x][y].isYellow) {
+            resetMoves();
+            showMoves(x,y);
+            if ((ui.op.gameMode == 1 || board.mode == 1 )&&x == board.nextMoveXY[0] && y == board.nextMoveXY[1]) {
+                board.clickedOn[0] = x;
+                board.clickedOn[1] = y;
+                resetMoves();
+                showMoves(x, y);
+            } else if (board.getPiece(x,y) == board.nextMoveC && board.getColor(x,y) == board.turnOf)   {
+                board.clickedOn[0] = x;
+                board.clickedOn[1] = y;
+                resetMoves();
+                showMoves(x, y);
             }
-            return;
+        } else {
+            resetMoves();
         }
 
-        if ((mode == 1 || board.mode == 1 )&&x == board.nextMoveXY[0] && y == board.nextMoveXY[1]) {
-            board.clickedOn[0] = x;
-            board.clickedOn[1] = y;
-            showMoves(x, y);
-        } else if (board.getPiece(x,y) == board.nextMoveC && board.getColor(x,y) == board.turnOf)   {
-            board.clickedOn[0] = x;
-            board.clickedOn[1] = y;
-            showMoves(x, y);
+
+    }
+
+    public void resetMoves() {
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                tiles[i][j].setLighterNoYellow();
+            }
         }
+    }
+
+    @Override
+    public Component getComp() {
+        return this;
+    }
+
+    @Override
+    public boolean getDev() {
+        return ui.op.dev;
     }
 
     public void removePiece(int x, int y) {
@@ -355,7 +387,7 @@ public class DiceGameUI extends JPanel implements UI{
         }
     }
 
-    private void resetHighlight() {
+    public void resetHighlight() {
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
                 tiles[i][j].setLigher();
@@ -370,5 +402,11 @@ public class DiceGameUI extends JPanel implements UI{
         } else {
             turnOfLabel.setText("Black");
         }
+    }
+
+    public void showMessage(String message, int seconds) {
+        Runnable runnable = new Message(this.message, message, seconds);
+        Thread thread = new Thread(runnable);
+        thread.start();
     }
 }

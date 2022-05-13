@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Random;
 
 public class NextMoveRandom implements Runnable {
 
@@ -12,26 +13,24 @@ public class NextMoveRandom implements Runnable {
 
     @Override
     public void run() {
+        Random rand = new Random();
         try {
             Thread.sleep(300);
         } catch (InterruptedException ignored) {
-
         }
         int counter = 0;
-        while (counter < 400) {
+        int limit = rand.nextInt(1000);
+        while (counter < limit+100) {
             for (int i = 0; i < 8; i++) {
                 for (int j = 0; j < 8; j++) {
                     if (board.getColor(i, j) == board.turnOf) {
                         ArrayList<int[]> moves = board.movesWithoutCheck(i, j);
                         for (int[] move : moves) {
-                            if (counter++ > 300) {
+                            if (counter++ > limit) {
                                 board.move(i, j, move[0], move[1]);
                                 return;
                             }
-                            if (board.getColor(move[0], move[1]) == board.not(color) && counter > 10) {
-                                board.move(i, j, move[0], move[1]);
-                                return;
-                            }
+
                         }
                     }
                 }

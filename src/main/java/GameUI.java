@@ -13,6 +13,7 @@ public class GameUI extends JPanel implements UI{
     JLabel background;
     JLabel turnLabel;
     JLabel turnOfLabel;
+    JLabel message;
     BoardGame board;
     Tile[][] tiles = new Tile[8][8];
 
@@ -21,17 +22,26 @@ public class GameUI extends JPanel implements UI{
     Color dark = new Color(141, 97, 0);
     Color darkDarker = dark.darker().darker();
 
+    boolean builder;
+
 
 
     public GameUI(ManagerUI ui) {
         this.ui = ui;
         this.board = new BoardGame(this);
+        builder = false;
         setup();
     }
 
     public void setup() {
         setBounds(0,0,1366,768);
         setLayout(null);
+
+        message = new JLabel("", SwingConstants.CENTER);
+        message.setBounds(0, 768/2-30, 1366, 60);
+        message.setForeground(Color.red.darker());
+        message.setFont(new Font("Arial", Font.BOLD, 50));
+        add(message);
 
         background = new JLabel();
         background.setBounds(0,0,1366,768);
@@ -63,19 +73,22 @@ public class GameUI extends JPanel implements UI{
 
             @Override
             public void mouseExited(MouseEvent e) {
-                board.pgn.nextMove();
+
             }
         });
         add(buttonExit);
 
         JLabel buttonCopy = new JLabel();
-        buttonCopy.setBounds(1040, 700, 240, 40);
-        buttonCopy.setBackground(Color.white);
-        buttonCopy.setOpaque(true);
+        buttonCopy.setBounds(1040, 365, 210, 48);
         buttonCopy.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                board.pgn.copyPGN();
+                if (builder) {
+                    showMessage("Cant Copy PGN in situation builder", 4);
+                } else {
+                    board.pgn.copyPGN();
+                    showMessage("Game copied to clipboard", 3);
+                }
             }
 
             @Override
@@ -100,15 +113,58 @@ public class GameUI extends JPanel implements UI{
         });
         add(buttonCopy);
 
+        JLabel buttonSave = new JLabel();
+        buttonSave.setBounds(1040, 267, 200, 40);
+        buttonSave.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (builder) {
+                    showMessage("Cant Save PGN in situation builder", 4);
+                } else {
+                    try {
+                        board.pgn.savePGN();
+                        showMessage("Game saved to pgnFiles", 3);
+                    } catch (IOException ex) {
+                        ex.printStackTrace();
+                    }
+                }
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+
+            }
+        });
+        add(buttonSave);
+
         JLabel buttonUndo = new JLabel();
         buttonUndo.setBounds(1044, 464, 284, 40);
         buttonUndo.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                if (board.againstComputer) {
-                    board.pgn.moveToDelete(board.turn-2);
+                if (builder) {
+                    showMessage("Cant undo in situation builder", 4);
                 } else {
-                    board.pgn.moveToDelete(board.turn-1);
+                    if (board.againstComputer) {
+                        board.pgn.moveToDelete(board.turn-2);
+                    } else {
+                        board.pgn.moveToDelete(board.turn-1);
+                    }
                 }
             }
 
@@ -136,12 +192,12 @@ public class GameUI extends JPanel implements UI{
 
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
-                tiles[i][j] = new Tile(this, i, j);
+                tiles[i][j] = new Tile(this, i, j, board);
                 add(tiles[i][j]);
             }
         }
         
-        turnLabel = new JLabel("999");
+        turnLabel = new JLabel("1");
         turnLabel.setBounds(1190, 25, 100, 50);
         turnLabel.setFont(new Font("Zapfino", Font.BOLD, 25));
         add(turnLabel);
@@ -363,4 +419,20 @@ public class GameUI extends JPanel implements UI{
             turnOfLabel.setText("Black");
         }
     }
+
+    public Component getComp() {
+        return this;
+    }
+
+    @Override
+    public boolean getDev() {
+        return ui.op.dev;
+    }
+
+    public void showMessage(String message, int seconds) {
+        Runnable runnable = new Message(this.message, message, seconds);
+        Thread thread = new Thread(runnable);
+        thread.start();
+    }
+
 }

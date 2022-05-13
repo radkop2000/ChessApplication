@@ -2,6 +2,7 @@ import java.awt.*;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -42,6 +43,8 @@ public class PGN {
         generateGame();
         return header.concat(game).concat(state);
     }
+
+
 
     public void generateHeader(int round, int state) {
         String date = java.time.LocalDate.now().toString();
@@ -129,6 +132,7 @@ public class PGN {
 
 
         moves.add(move);
+        System.out.println(move);
     }
 
     public void copyPGN() { // To clipboard
@@ -142,6 +146,7 @@ public class PGN {
         String str = getPGN();
         Date date = new Date();
         DateFormat format = new SimpleDateFormat("dd.MM.yyyy-HH:mm");
+        new File("src/opinarium3/media/presentaciones/"+format.format(date)+"/comments/");
         BufferedWriter writer = new BufferedWriter(new FileWriter("src/main/pgnFiles/" + format.format(date) + ".pgn"));
         writer.write(str);
         writer.close();
@@ -150,6 +155,7 @@ public class PGN {
     public void loadPGNFromFile(String fileName) throws IOException {
         Path path = Paths.get(fileName);
         loadPGNFromString(Files.readString(path));
+        System.out.println(Files.readString(path));
     }
 
     public void loadPGNFromString(String pgn) {
@@ -234,12 +240,14 @@ public class PGN {
         if (moveNum >= moves.size()) {
             return false;
         }
+
         char turnOf;
         if ((moveNum % 2) == 0) {
             turnOf = 'W';
         } else {
             turnOf = 'B';
         }
+
 
         String move = moves.get(moveNum);
         move = move.replace("x", "");

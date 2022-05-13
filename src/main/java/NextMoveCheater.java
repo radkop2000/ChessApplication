@@ -15,13 +15,13 @@ public class NextMoveCheater implements Runnable {
     @Override
     public void run() {
         Random rand = new Random();
-        int num = rand.nextInt(350);
         try {
-            Thread.sleep(100);
+            Thread.sleep(rand.nextInt(3000));
         } catch (InterruptedException ignored) {
         }
         int counter = 0;
-        while (counter < 400) {
+        int num = rand.nextInt(1000);
+        while (counter < num+100) {
             for (int i = 0; i < 8; i++) {
                 for (int j = 0; j < 8; j++) {
                     if (board.getColor(i, j) == board.turnOf) {
@@ -32,7 +32,7 @@ public class NextMoveCheater implements Runnable {
                             if (counter++ > num) {
                                 board.move(i, j, move[0], move[1]);
                                 System.out.println(board.boardHeuristic());
-                                while (board.boardHeuristic() < 5000) {
+                                while (board.boardHeuristic() < 0) {
                                     for (int k = 0; k < 8; k++) {
                                         for (int l = 0; l < 8; l++) {
                                             if (board.getColor(i, j) != 'B') {
@@ -42,7 +42,7 @@ public class NextMoveCheater implements Runnable {
                                     }
 
                                 }
-                                while (board.boardHeuristic() < 5000) {
+                                while (board.boardHeuristic() < 0) {
                                     for (int k = 0; k < 8; k++) {
                                         for (int l = 0; l < 8; l++) {
                                             if (board.getColor(i, j) != 'B') {
@@ -59,7 +59,7 @@ public class NextMoveCheater implements Runnable {
                                 if (heuristic < 0 && board.getPiece(move[0], move[1]) != 'K') {
                                     board.putPiece("BQ", move[0], move[1]);
                                 }
-                                while (board.boardHeuristic() < 5000) {
+                                while (board.boardHeuristic() < 0) {
                                     for (int k = 0; k < 8; k++) {
                                         for (int l = 0; l < 8; l++) {
                                             if (board.getColor(i, j) != 'B') {

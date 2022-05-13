@@ -1,3 +1,5 @@
+import javax.swing.*;
+
 public class ManagerUI {
 
     public static final int MENU_MAIN =             0;
@@ -15,7 +17,7 @@ public class ManagerUI {
     Window window;
 
     MenuMainUI main;
-    MenuPlayBuilderUI builder;
+    MenuSituationUI builder;
     MenuPlayEndGameUI endGame;
     MenuPlayPGNUI playPGN;
     MenuPlayUI play;
@@ -31,7 +33,7 @@ public class ManagerUI {
         this.op = op;
         this.window = window;
         main = new MenuMainUI(this);
-        builder = new MenuPlayBuilderUI(this);
+        builder = new MenuSituationUI(this);
         endGame = new MenuPlayEndGameUI(this);
         playPGN = new MenuPlayPGNUI(this);
         play = new MenuPlayUI(this);
@@ -56,16 +58,21 @@ public class ManagerUI {
  */
         switch (panel) {
             case 0 -> window.showPanel(main);
-            case 1 -> window.showPanel(builder);
+            case 1 -> {
+                window.showPanel(builder);
+                builder.resetBoard();
+            }
             case 2 -> window.showPanel(endGame);
             case 3 -> window.showPanel(playPGN);
             case 4 -> {
                 window.showPanel(play);
-                game.board.againstComputer = true;
             }
             case 5 -> window.showPanel(replayMenu);
             case 6 -> window.showPanel(settings);
-            case 7 -> window.showPanel(game);
+            case 7 -> {
+                window.showPanel(game);
+                game.board.startClock();
+            }
             case 8 -> window.showPanel(replay);
             case 9 -> {
                 window.showPanel(dice);
@@ -74,5 +81,10 @@ public class ManagerUI {
                 op.window.repaint();
             }
         }
+    }
+
+    public void endGame(JPanel panel, char winner) {
+        showPanel(ManagerUI.MENU_PLAY_END_GAME);
+        endGame.endGame(panel, winner);
     }
 }

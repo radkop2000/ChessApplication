@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public interface Board {
 
 
@@ -14,5 +16,13 @@ public interface Board {
     char getColor(int x, int y);
 
     char not(char color);
+
+    char getTurnOf();
+
+    void move(int fromX, int fromY, int toX, int toY);
+
+    public ArrayList<int[]> movesWithoutCheck(int fromX, int fromY);
+
+    int getRound();
 
 }

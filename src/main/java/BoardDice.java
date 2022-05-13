@@ -265,6 +265,11 @@ public class BoardDice implements Board{
         return movesWithoutCheck(pieces[fromX][fromY].possibleMoves(), fromX, fromY);
     }
 
+    @Override
+    public int getRound() {
+        return 0;
+    }
+
     public ArrayList<int[]> movesWithoutCheck(ArrayList<int[]> moves, int fromX, int fromY) {
 
 
@@ -338,6 +343,11 @@ public class BoardDice implements Board{
         } else {
             return 'W';
         }
+    }
+
+    @Override
+    public char getTurnOf() {
+        return turnOf;
     }
 
 

@@ -12,6 +12,7 @@ public class Operator {
         windowThread.start();
         window.setVisible(true);
         ui = new ManagerUI(this, window);
+
     }
 
     public static void main(String[] args) {

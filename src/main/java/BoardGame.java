@@ -3,8 +3,8 @@ import java.util.ArrayList;
 public class BoardGame implements Board {
 
     Piece[][] pieces;
-    Tile[][] tiles;
     GameUI ui;
+    PGN pgn = new PGN(this);
 
     boolean playable;
     int[] clickedOn = new int[2];
@@ -100,6 +100,7 @@ public class BoardGame implements Board {
         return 0;
     }
 
+
     public void move(int x, int y) {
 
         if (getPiece(clickedOn[0], clickedOn[1]) == 'K' && Math.abs(clickedOn[1] - y) == 2) {
@@ -109,10 +110,12 @@ public class BoardGame implements Board {
         if (getPiece(clickedOn[0], clickedOn[1]) == 'P' && x != clickedOn[0] && y != clickedOn[1] && getColor(x,y) == 'N') {
             enPassant(y);
         }
+        boolean takes = getPiece(x, y) != 'N';
 
         putPiece(getColor(clickedOn[0], clickedOn[1]) + "" + getPiece(clickedOn[0], clickedOn[1]), x, y);
         removePiece(clickedOn[0], clickedOn[1]);
 
+        pgn.updatePGN(clickedOn[0], clickedOn[1], x, y, takes, getPiece(x, y));
 
         if (getPiece(x, y) == 'P' && (x == 0 || x == 7)) {
             ui.showPromotion(turnOf);
@@ -127,7 +130,6 @@ public class BoardGame implements Board {
     }
 
     private void castle(int y) {
-        System.out.println("CASTLING");
         if (clickedOn[0] == 0 && y == 2) {
             putPiece("BR", 0, 3);
             removePiece(0, 0);
@@ -140,8 +142,6 @@ public class BoardGame implements Board {
         } else if (clickedOn[0] == 7 && y == 6) {
             putPiece("WR", 7, 5);
             removePiece(7, 7);
-        } else {
-            System.out.println("OOF");
         }
     }
 
@@ -171,7 +171,7 @@ public class BoardGame implements Board {
             System.out.println("KONIEC HRY SOM NASIEL");
         }
 
-        if (againstComputer && computer.getColor() == turnOf) {
+        if (againstComputer && computer.getColor() == turnOf && !pgn.pgnMoving) {
             computer.nextTurn();
         }
         turn++;
@@ -184,8 +184,9 @@ public class BoardGame implements Board {
         move(toX, toY);
     }
 
-    public void setupPGN(int move) {
-        // TODO (if move == -1 => setup until end)
+    public void setupPGN() {
+        againstComputer = false;
+        pgn.moveToEnd();
     }
 
     public char getPiece(int x, int y) {
@@ -288,6 +289,14 @@ public class BoardGame implements Board {
         } else {
             return 'W';
         }
+    }
+
+    public char getTurnOf() {
+        return turnOf;
+    }
+
+    public int getRound() {
+        return turn;
     }
 
 

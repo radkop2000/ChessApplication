@@ -44,6 +44,8 @@ public class PGN {
         return header.concat(game).concat(state);
     }
 
+
+
     public void generateHeader(int round, int state) {
         String date = java.time.LocalDate.now().toString();
         String result;
@@ -130,6 +132,7 @@ public class PGN {
 
 
         moves.add(move);
+        System.out.println(move);
     }
 
     public void copyPGN() { // To clipboard
@@ -237,12 +240,14 @@ public class PGN {
         if (moveNum >= moves.size()) {
             return false;
         }
+
         char turnOf;
         if ((moveNum % 2) == 0) {
             turnOf = 'W';
         } else {
             turnOf = 'B';
         }
+
 
         String move = moves.get(moveNum);
         move = move.replace("x", "");

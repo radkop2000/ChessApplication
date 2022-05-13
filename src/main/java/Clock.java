@@ -5,7 +5,7 @@ import java.time.format.DateTimeFormatter;
 
 public class Clock implements Runnable {
 
-    Board board;
+    BoardGame board;
     JPanel panel;
     JLabel timeB;
     JLabel timeW;
@@ -14,29 +14,33 @@ public class Clock implements Runnable {
     int secW;
     int minB;
     int secB;
-    boolean stop = false;
 
-    public Clock(Board board, JPanel panel) {
+    public Clock(BoardGame board, JPanel panel) {
         this.board = board;
         this.panel = panel;
         setup();
     }
 
     private void setup() {
-        timeB = new JLabel("aaa");
+        timeB = new JLabel("");
         timeB.setBounds(1041, 120, 300, 50);
         timeB.setFont(new Font("Arial", Font.BOLD, 50));
         panel.add(timeB);
 
-        timeW = new JLabel("aaa");
+        timeW = new JLabel("");
         timeW.setBounds(1041, 180, 300, 50);
         timeW.setFont(new Font("Arial", Font.BOLD, 50));
         panel.add(timeW);
     }
 
+
     @Override
     public void run() {
-        stop = false;
+        if (!board.ui.ui.op.clock) {
+            timeW.setText("");
+            timeB.setText("");
+            return;
+        }
         System.out.println("RUNNING CLOCK");
         minW = board.getClockTime();
         minB = board.getClockTime();
@@ -48,7 +52,7 @@ public class Clock implements Runnable {
 
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("ss");
         LocalDateTime last = LocalDateTime.now();
-        while (minW >= 0 && minB >= 0 && !stop) {
+        while (minW >= 0 && minB >= 0) {
             LocalDateTime now = LocalDateTime.now();
             if (!dtf.format(last).equals(dtf.format(now))) {
                 timeMinus(board.getTurnOf());
@@ -80,10 +84,6 @@ public class Clock implements Runnable {
     private void updateTime() {
         timeW.setText(minW + ":" + secW);
         timeB.setText(minB + ":" + secB);
-    }
-
-    private void close() {
-        stop = true;
     }
 
 

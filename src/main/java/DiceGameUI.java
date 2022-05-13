@@ -17,7 +17,7 @@ public class DiceGameUI extends JPanel implements UI{
     BoardDice board;
     Tile[][] tiles = new Tile[8][8];
 
-    int mode;
+
 
     Color light = new Color(180, 123, 0);
     Color lightDarker = light.darker().darker();
@@ -26,9 +26,15 @@ public class DiceGameUI extends JPanel implements UI{
 
     public DiceGameUI(ManagerUI ui) {
         this.ui = ui;
-        this.board = new BoardDice(this);
-        mode = ui.op.gameMode;
         setup();
+        this.board = new BoardDice(this);
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                tiles[i][j] = new Tile(this, i, j, board);
+                add(tiles[i][j]);
+            }
+        }
+        add(background);
     }
 
     public void setup() {
@@ -78,7 +84,7 @@ public class DiceGameUI extends JPanel implements UI{
 
         rules = new JLabel();
         rules.setBounds(0,0,1366,768);
-        ImageIcon rulesIcon = new ImageIcon("src/main/resources/MenuMain.png");
+        ImageIcon rulesIcon = new ImageIcon("src/main/resources/gameModeRules.png");
         rules.setIcon(rulesIcon);
         rules.setVisible(false);
         rules.addMouseListener(new MouseListener() {
@@ -139,12 +145,7 @@ public class DiceGameUI extends JPanel implements UI{
         });
         add(buttonRules);
 
-        for (int i = 0; i < 8; i++) {
-            for (int j = 0; j < 8; j++) {
-                tiles[i][j] = new Tile(this, i, j, board);
-                add(tiles[i][j]);
-            }
-        }
+
 
         turnLabel = new JLabel("999");
         turnLabel.setBounds(1190, 25, 100, 50);
@@ -156,7 +157,7 @@ public class DiceGameUI extends JPanel implements UI{
         turnOfLabel.setFont(new Font("Zapfino", Font.BOLD, 25));
         add(turnOfLabel);
 
-        add(background);
+
     }
 
     public void redrawBackground() {
@@ -331,15 +332,15 @@ public class DiceGameUI extends JPanel implements UI{
         if (tiles[x][y].isHighlighted) {
             resetHighlight();
             board.move(x, y);
-            if (mode == 1 || board.mode == 1) {
-                board.clickedOn[0] = board.nextMoveXY[0];
-                board.clickedOn[1] = board.nextMoveXY[1];
-                showMoves(board.clickedOn[0], board.clickedOn[1]);
-            }
+//            if (ui.op.gameMode == 1 || board.mode == 1) {
+//                board.clickedOn[0] = board.nextMoveXY[0];
+//                board.clickedOn[1] = board.nextMoveXY[1];
+//                showMoves(board.clickedOn[0], board.clickedOn[1]);
+//            }
         } else if (tiles[x][y].isYellow) {
             resetMoves();
             showMoves(x,y);
-            if ((mode == 1 || board.mode == 1 )&&x == board.nextMoveXY[0] && y == board.nextMoveXY[1]) {
+            if ((ui.op.gameMode == 1 || board.mode == 1 )&&x == board.nextMoveXY[0] && y == board.nextMoveXY[1]) {
                 board.clickedOn[0] = x;
                 board.clickedOn[1] = y;
                 resetMoves();
@@ -386,7 +387,7 @@ public class DiceGameUI extends JPanel implements UI{
         }
     }
 
-    private void resetHighlight() {
+    public void resetHighlight() {
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
                 tiles[i][j].setLigher();

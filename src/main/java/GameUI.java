@@ -115,8 +115,6 @@ public class GameUI extends JPanel implements UI{
 
         JLabel buttonSave = new JLabel();
         buttonSave.setBounds(1040, 267, 200, 40);
-        buttonSave.setBackground(Color.white);
-        buttonSave.setOpaque(true);
         buttonSave.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {

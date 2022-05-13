@@ -12,16 +12,18 @@ public class Computer {
 
     public void nextTurn() {
         switch (difficulty) {
-            case 0:
+            case 0 -> {
                 Thread thread1 = new Thread(new NextMoveRandom(board, color));
                 thread1.start();
-                break;
-            case 1:
-                break;
-            case 2:
+            }
+            case 1 -> {
+                Thread thread3 = new Thread(new NextMoveEasy(board, color));
+                thread3.start();
+            }
+            case 2 -> {
                 Thread thread2 = new Thread(new NextMoveCheater(board, color));
                 thread2.start();
-                break;
+            }
         }
     }
 

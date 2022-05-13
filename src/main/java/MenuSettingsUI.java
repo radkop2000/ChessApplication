@@ -20,6 +20,7 @@ public class MenuSettingsUI extends JPanel{
     JLabel buttonBack;
     JLabel buttonDefault;
     JButton buttonClockTime;
+    JButton buttonAnimation;
 
     public MenuSettingsUI(ManagerUI ui) {
         this.ui = ui;
@@ -35,6 +36,15 @@ public class MenuSettingsUI extends JPanel{
         background.setBounds(0,0,1366,768);
         ImageIcon backgroundIcon = new ImageIcon("src/main/resources/Settings.png");
         background.setIcon(backgroundIcon);
+
+        buttonAnimation = new JButton("GameMode Animation");
+        buttonAnimation.setBounds(100,300,250,40);
+        buttonAnimation.addActionListener(e -> {
+            ui.op.animation = !ui.op.animation;
+            setAnimationText();
+        });
+        setAnimationText();
+        add(buttonAnimation);
 
         buttonDev = new JButton("Dev Mode");
         buttonDev.setBounds(100,350,250,40);
@@ -169,9 +179,9 @@ public class MenuSettingsUI extends JPanel{
 
     public void setModeText() {
         if (ui.op.gameMode == 0) {
-            buttonMode.setText("GameMode: Random piece");
+            buttonMode.setText("GameMode: Random type of piece");
         } else if (ui.op.gameMode == 1) {
-            buttonMode.setText("GameMode: Random type");
+            buttonMode.setText("GameMode: Random piece");
         } else if (ui.op.gameMode == 2) {
             buttonMode.setText("GameMode: Chaos");
         }
@@ -193,7 +203,8 @@ public class MenuSettingsUI extends JPanel{
                 gameMode %d
                 clock %d
                 clockTime %d
-                """, ui.op.dev ? 1 : 0, ui.op.computerDifficulty, ui.op.gameMode, ui.op.clock ? 1 : 0, ui.op.clockTime);
+                animation %d
+                """, ui.op.dev ? 1 : 0, ui.op.computerDifficulty, ui.op.gameMode, ui.op.clock ? 1 : 0, ui.op.clockTime, ui.op.animation ? 1 : 0);
         try {
             writer = new BufferedWriter(new FileWriter("src/main/java/config.txt"));
             writer.write(str);
@@ -211,16 +222,22 @@ public class MenuSettingsUI extends JPanel{
         ui.op.gameMode = 0;
         ui.op.clock = false;
         ui.op.clockTime = 0;
+        ui.op.animation = false;
         setDevText();
         setComputerText();
         setModeText();
         setClockText();
         setClockTime();
+        setAnimationText();
     }
 
     public void setClockTime() {
         int[] time = {1,3,5,10,15,60};
         buttonClockTime.setText("Time on clock: " + time[ui.op.clockTime] + " minutes");
+    }
+
+    public void setAnimationText() {
+        buttonAnimation.setForeground(ui.op.animation ? Color.green.darker() : Color.red);
     }
 
 

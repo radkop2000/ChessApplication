@@ -62,7 +62,9 @@ public class ReplayUI extends JPanel implements UI {
         buttonNext.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                board.pgn.nextMove();
+                if (!board.pgn.nextMove()) {
+                    showMessage("End of game is reacehd", 4);
+                }
             }
 
             @Override

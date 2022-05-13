@@ -103,13 +103,11 @@ public class BoardGame implements Board {
     }
 
     public void startClock() {
-        if (ui.ui.op.clock) {
             if (thread != null) {
                 thread.stop();
             }
             thread = new Thread(clock);
             thread.start();
-        }
     }
 
 
@@ -181,6 +179,7 @@ public class BoardGame implements Board {
 
         if (isCheckMate()) {
             System.out.println("KONIEC HRY SOM NASIEL");
+            endGame();
         }
 
         if (againstComputer && computer.getColor() == turnOf && !pgn.pgnMoving) {
@@ -328,6 +327,32 @@ public class BoardGame implements Board {
                 putPiece(board[i][j] == null ? "NN" : board[i][j], i, j);
             }
         }
+    }
+
+    public void endGame() {
+        if (ui.ui.op.clock) {
+            thread.stop();
+        }
+        pgn.end = isPat() ? 2 : not(turnOf) == 'W' ? 0 : 1;
+        ui.ui.endGame(ui, isPat() ? 'N' : not(turnOf));
+    }
+
+
+    private boolean isPat() {
+        int[] king = findKing(turnOf);
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                if (getColor(i,j) == not(turnOf)) {
+                    ArrayList<int[]> moves = pieces[i][j].possibleMoves();
+                    for (int[] move: moves) {
+                        if (move[0] == king[0] && move[1] == king[1]) {
+                            return false;
+                        }
+                    }
+                }
+            }
+        }
+        return true;
     }
 
 

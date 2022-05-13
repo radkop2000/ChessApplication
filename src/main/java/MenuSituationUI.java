@@ -61,6 +61,8 @@ public class MenuSituationUI extends JPanel implements UI{
                     ui.game.board.againstComputer = false;
                     ui.showPanel(ManagerUI.GAME);
                     ui.game.board.setupBoard(board);
+                    ui.game.board.turnOf = 'W';
+                    ui.game.board.turn = 0;
                     ui.game.updateText();
                     ui.game.builder = true;
                 } else {

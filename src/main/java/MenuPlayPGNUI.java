@@ -1,8 +1,13 @@
 import javax.swing.*;
+import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.filechooser.FileSystemView;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.io.File;
 import java.io.IOException;
 
 public class MenuPlayPGNUI extends JPanel {
@@ -55,29 +60,95 @@ public class MenuPlayPGNUI extends JPanel {
         });
         add(loadButton);
 
-        fileChooser = new JFileChooser("src/main/pgnFiles", FileSystemView.getFileSystemView());
-        FileNameExtensionFilter filter = new FileNameExtensionFilter("pgn","pgn");
-        fileChooser.setFileFilter(filter);
-        add(fileChooser);
+//        fileChooser = new JFileChooser("src/main/pgnFiles", FileSystemView.getFileSystemView());
+//        FileNameExtensionFilter filter = new FileNameExtensionFilter("pgn","pgn");
+//        fileChooser.setFileFilter(filter);
+//        add(fileChooser);
+//
+//        JButton buttonChooser = new JButton("Choose PGN file");
+//        buttonChooser.setBounds(830, 420, 240, 140);
+//        buttonChooser.addActionListener(e -> {
+//            int r = fileChooser.showOpenDialog(null);
+//            if (r == JFileChooser.APPROVE_OPTION) {
+//                ui.showPanel(ManagerUI.GAME);
+//                ui.game.builder = false;
+//                try {
+//                    ui.game.board.pgn.loadPGNFromFile(fileChooser.getSelectedFile().getAbsolutePath());
+//                } catch (IOException ex) {
+//                    ex.printStackTrace();
+//                }
+//                ui.game.board.setupPGN();
+//            }
+//        });
+//        add(buttonChooser);
+        fileChooser = new JFileChooser();
+        fileChooser.setFileFilter(new FileFilter() {
 
-        JButton buttonChooser = new JButton("Choose PGN file");
-        buttonChooser.setBounds(830, 420, 240, 140);
-        buttonChooser.addActionListener(e -> {
-            int r = fileChooser.showOpenDialog(null);
-            if (r == JFileChooser.APPROVE_OPTION) {
-                ui.showPanel(ManagerUI.GAME);
-                ui.game.builder = false;
-                try {
-                    ui.game.board.pgn.loadPGNFromFile(fileChooser.getSelectedFile().getAbsolutePath());
-                } catch (IOException ex) {
-                    ex.printStackTrace();
-                }
-                ui.game.board.setupPGN();
+            @Override
+            public boolean accept(File f) {
+                return f.getName().toLowerCase().endsWith(".pgn");
             }
+
+            @Override
+            public String getDescription() {
+                return ".pgn";
+            }
+        });
+
+        JButton buttonChooser = new JButton("Choose pgn File");
+        buttonChooser.setBounds(882, 456, 140, 50);
+        buttonChooser.addActionListener(e -> {
+            chooseFile();
         });
         add(buttonChooser);
 
+        JLabel buttonBack = new JLabel();
+        buttonBack.setBounds(633,687,111,45);
+        buttonBack.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                ui.showPanel(ManagerUI.MENU_PLAY);
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+
+            }
+        });
+        add(buttonBack);
+
+
         add(background);
         repaint();
+    }
+
+
+    public void chooseFile() {
+        int r = fileChooser.showOpenDialog(null);
+        if (r == JFileChooser.APPROVE_OPTION) {
+            try {
+                ui.game.board.pgn.loadPGNFromFile(fileChooser.getSelectedFile().getAbsolutePath());
+                ui.showPanel(ManagerUI.GAME);
+                ui.game.board.setupClassic();
+                ui.game.board.pgn.moveToEnd();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }

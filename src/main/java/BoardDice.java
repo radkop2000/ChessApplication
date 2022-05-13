@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Random;
 
 public class BoardDice implements Board{
@@ -14,11 +15,14 @@ public class BoardDice implements Board{
     char nextMoveC;
     int mode;
 
+    GameModeAnimation anim;
+
 
     public BoardDice(DiceGameUI ui) {
         this.ui = ui;
         pieces = new Piece[8][8];
         turn = 0;
+        anim = new GameModeAnimation(ui, this);
         setup();
     }
 
@@ -76,6 +80,7 @@ public class BoardDice implements Board{
         turnOf = 'W';
         turn = 0;
         ui.updateText();
+        ui.resetHighlight();
         generateNextMove();
     }
 
@@ -173,11 +178,13 @@ public class BoardDice implements Board{
 
         turnOf = not(turnOf);
 
+        if (isCheckMate()) {
+            endGame();
+            return;
+        }
+
         generateNextMove();
 
-        if (isCheckMate()) {
-            System.out.println("KONIEC HRY SOM NASIEL");
-        }
 
         turn++;
         ui.updateText();
@@ -188,10 +195,10 @@ public class BoardDice implements Board{
 
         Random rand = new Random();
 
-        if (ui.mode == 2) {
+        if (ui.ui.op.gameMode == 2) {
             mode = rand.nextInt(1,3);
         } else {
-            mode = ui.mode;
+            mode = ui.ui.op.gameMode;
         }
 
         if (mode == 1) {
@@ -207,7 +214,9 @@ public class BoardDice implements Board{
 
             nextMoveXY = possibleMoves.get(rand.nextInt(0, possibleMoves.size()));
 
-            ui.tiles[nextMoveXY[0]][nextMoveXY[1]].highlight();
+            anim.NextAnimation(nextMoveXY);
+//            highlight(1);
+//            ui.tiles[nextMoveXY[0]][nextMoveXY[1]].highlight();
         } else {
 
             ArrayList<Character> possibleMoves = new ArrayList<>();
@@ -222,6 +231,50 @@ public class BoardDice implements Board{
 
             nextMoveC = possibleMoves.get(rand.nextInt(0, possibleMoves.size()));
 
+            anim.NextAnimation(nextMoveC);
+
+//            highlight(2);
+//            for (int i = 0; i < 8; i++) {
+//                for (int j = 0; j < 8; j++) {
+//                    if (getPiece(i, j) == nextMoveC && getColor(i, j) == turnOf) {
+//                        if (movesWithoutCheck(i,j).size() > 0) {
+//                            ui.tiles[i][j].highlight();
+//                        }
+//                    }
+//                }
+//            }
+        }
+    }
+
+    public void endGame() {
+
+        ui.ui.endGame(ui, isPat() ? 'N' : not(turnOf));
+    }
+
+    private boolean isPat() {
+        int[] king = findKing(turnOf);
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                if (getColor(i,j) == not(turnOf)) {
+                    ArrayList<int[]> moves = pieces[i][j].possibleMoves();
+                    for (int[] move: moves) {
+                        if (move[0] == king[0] && move[1] == king[1]) {
+                            return false;
+                        }
+                    }
+                }
+            }
+        }
+        return true;
+    }
+
+    public void highlight(int mode) {
+        System.out.println("mode: " + mode);
+        if (mode == 1) {
+            System.out.println("mode1 executing");
+            ui.tiles[nextMoveXY[0]][nextMoveXY[1]].highlight();
+        } else {
+            System.out.println("modeElse executing");
             for (int i = 0; i < 8; i++) {
                 for (int j = 0; j < 8; j++) {
                     if (getPiece(i, j) == nextMoveC && getColor(i, j) == turnOf) {
@@ -232,7 +285,6 @@ public class BoardDice implements Board{
                 }
             }
         }
-
     }
 
     public void move(int fromX, int fromY, int toX, int toY) {

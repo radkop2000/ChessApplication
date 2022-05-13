@@ -1,6 +1,9 @@
 import javax.swing.*;
+import javax.swing.filechooser.FileFilter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.File;
+import java.io.IOException;
 
 public class MenuReplayUI extends JPanel {
 
@@ -8,6 +11,7 @@ public class MenuReplayUI extends JPanel {
     JLabel background;
     JTextArea textArea;
     JButton loadButton;
+    JFileChooser fileChooser;
 
     public MenuReplayUI(ManagerUI ui) {
         this.ui = ui;
@@ -79,7 +83,73 @@ public class MenuReplayUI extends JPanel {
             }
         });
 
+        fileChooser = new JFileChooser();
+        fileChooser.setFileFilter(new FileFilter() {
+
+            @Override
+            public boolean accept(File f) {
+                return f.getName().toLowerCase().endsWith(".pgn");
+            }
+
+            @Override
+            public String getDescription() {
+                return ".pgn";
+            }
+        });
+
+        JButton buttonChooser = new JButton("Choose pgn File");
+        buttonChooser.setBounds(882, 456, 140, 50);
+        buttonChooser.addActionListener(e -> {
+            chooseFile();
+        });
+        add(buttonChooser);
+
+        JLabel buttonBack = new JLabel();
+        buttonBack.setBounds(633,687,111,45);
+        buttonBack.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                ui.showPanel(ManagerUI.MENU_MAIN);
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+
+            }
+        });
+        add(buttonBack);
+
         add(background);
         repaint();
     }
+
+    public void chooseFile() {
+        int r = fileChooser.showOpenDialog(null);
+        if (r == JFileChooser.APPROVE_OPTION) {
+            try {
+                ui.game.board.pgn.loadPGNFromFile(fileChooser.getSelectedFile().getAbsolutePath());
+                ui.showPanel(ManagerUI.GAME);
+                ui.game.board.setupClassic();
+                ui.game.board.pgn.moveToEnd();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
 }

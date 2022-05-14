@@ -31,6 +31,11 @@ public class PGN {
         end = -1;
     }
 
+    /**
+     * It generates the header and game strings, then concatenates them with the state string
+     *
+     * @return A string of the game in PGN format.
+     */
     public String getPGN() {
         String state = "";
         switch (end) {
@@ -44,8 +49,12 @@ public class PGN {
         return header.concat(game).concat(state);
     }
 
-
-
+    /**
+     * It generates a header for the PGN file
+     *
+     * @param round the round number of the game
+     * @param state -1 = game in progress, 0 = white win, 1 = black win, 2 = draw
+     */
     public void generateHeader(int round, int state) {
         String date = java.time.LocalDate.now().toString();
         String result;
@@ -61,6 +70,9 @@ public class PGN {
         header = String.format("[Event \"Chess Game\"]\n[Site \"Prague\"]\n[Date \"%s\"]\n[Round \"%d\"]\n[White \"?\"]\n[Black \"?\"]\n[Result \"%s\"]\n\n", date, round / 2, result);
     }
 
+    /**
+     * It takes the moves array and creates a string that is formatted like a chess game
+     */
     public void generateGame() {
         game = "";
         int idx = 2;
@@ -79,6 +91,16 @@ public class PGN {
         }
     }
 
+    /**
+     * It checks if the move is ambiguous, and if it is, it adds the move to the PGN
+     *
+     * @param fromX The x coordinate of the piece that is moving
+     * @param fromY The y coordinate of the piece that is moving
+     * @param toX The x coordinate of the square the piece is moving to
+     * @param toY The y coordinate of the square the piece is moving to
+     * @param takes whether the move takes a piece or not
+     * @param piece The piece that is moving
+     */
     public void updatePGN(int fromX, int fromY, int toX, int toY, boolean takes, char piece) {
         if (pgnMoving) {
             return;
@@ -132,9 +154,11 @@ public class PGN {
 
 
         moves.add(move);
-        System.out.println(move);
     }
 
+    /**
+     * It copies the PGN to the clipboard.
+     */
     public void copyPGN() { // To clipboard
         String myString = getPGN();
         StringSelection stringSelection = new StringSelection(myString);
@@ -142,6 +166,9 @@ public class PGN {
         clipboard.setContents(stringSelection, null);
     }
 
+    /**
+     * It takes the PGN string from the game and saves it to a file
+     */
     public void savePGN() throws IOException {
         String str = getPGN();
         Date date = new Date();
@@ -152,12 +179,21 @@ public class PGN {
         writer.close();
     }
 
+    /**
+     * It reads the file with the given name, and then calls the function `loadPGNFromString` with the contents of the file
+     *
+     * @param fileName The name of the file to load.
+     */
     public void loadPGNFromFile(String fileName) throws IOException {
         Path path = Paths.get(fileName);
         loadPGNFromString(Files.readString(path));
-        System.out.println(Files.readString(path));
     }
 
+    /**
+     * It takes a PGN string, parses it, and stores the header, result, and moves in the appropriate variables
+     *
+     * @param pgn The PGN string to be loaded
+     */
     public void loadPGNFromString(String pgn) {
         char c = pgn.charAt(0);
         int idx = 0;
@@ -197,6 +233,9 @@ public class PGN {
         moveNum = 0;
     }
 
+    /**
+     * It removes all comments from the game and then removes all the turn numbers from the game
+     */
     public void splitToMoves() {
 
         boolean flag = true;
@@ -232,9 +271,13 @@ public class PGN {
         }
 
         moves.addAll(Arrays.asList(gameWithoutTurns.split(" ")));
-        System.out.println(moves);
     }
 
+    /**
+     * It takes a move from the list of moves, and tries to find a piece that can make that move
+     *
+     * @return true if the move could be made
+     */
     public boolean nextMove() {
 
         if (moveNum >= moves.size()) {
@@ -275,7 +318,6 @@ public class PGN {
         }
 //          move = move.concat(String.valueOf((char) (Math.abs(toY) + 97)));
 //          move = move.concat(Math.abs(toX - 7) + 1 + "");
-        System.out.println(piece + " " + move);
         if (move.length() == 2) {
             toX = Math.abs(Integer.parseInt(move.charAt(1) + "") - 8);
             toY = move.charAt(0) - 97;
@@ -289,7 +331,6 @@ public class PGN {
                                 fromX = i;
                                 fromY = j;
                                 board.move(fromX, fromY, toX, toY);
-                                System.out.println("moving " + piece + " from " + fromX + " " + fromY + " to " + toX + " " + toY);
                                 return true;
                             }
                         }
@@ -314,10 +355,12 @@ public class PGN {
                 }
             }
         }
-        System.out.println("UHH OHH NIECO SA POKAZILO");
         return false;
     }
 
+    /**
+     * If the move is a castle, move the king and the rook
+     */
     public void nextMoveCastle() {
 
         String move = moves.get(moveNum);
@@ -334,24 +377,30 @@ public class PGN {
 
     }
 
+    /**
+     * If the move number is greater than 0, decrement the move number and call the moveTo function.
+     */
     public void prevMove() {
         moveTo(moveNum-1);
     }
 
-    public void prevMoveDelete() {
-        moveToDelete(moveNum-1);
-    }
-
+    /**
+     * Move to the end of the game.
+     */
     public void moveToEnd() {
         board.setupClassic();
         moveNum = 0;
         pgnMoving = true;
         while (nextMove()) {
-            System.out.println("MOVING");
         }
         pgnMoving = false;
     }
 
+    /**
+     * Move to the nth move in the game.
+     *
+     * @param n The move number to move to.
+     */
     public void moveTo(int n) {
         board.setupClassic();
         moveNum = 0;
@@ -362,6 +411,12 @@ public class PGN {
         pgnMoving = false;
     }
 
+    /**
+     * It sets up the board to the starting position, then moves through the moves list until it reaches the nth move, and
+     * then it deletes all the moves after that
+     *
+     * @param n The number of moves to delete.
+     */
     public void moveToDelete(int n) {
         ArrayList<String> newMoves = new ArrayList<>();
         board.setupClassic();

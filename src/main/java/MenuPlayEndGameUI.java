@@ -19,6 +19,9 @@ public class MenuPlayEndGameUI extends JPanel {
         setup();
     }
 
+    /**
+     * It sets up the panel
+     */
     public void setup() {
         setBounds(0,0,1366,768);
         setLayout(null);
@@ -91,6 +94,12 @@ public class MenuPlayEndGameUI extends JPanel {
         add(background);
     }
 
+    /**
+     * It sets the background image of the game to the end game image
+     *
+     * @param panel the panel that you want to be displayed on the screen
+     * @param backgroundType 'W' for win, 'L' for lose
+     */
     public void endGame(JPanel panel, char backgroundType) {
         lastPanel = panel;
         ImageIcon icon = new ImageIcon("src/main/resources/endGame" + backgroundType + ".png");

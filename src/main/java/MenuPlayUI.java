@@ -13,6 +13,10 @@ public class MenuPlayUI extends JPanel{
         setup();
     }
 
+    /**
+     * It sets up the panel for the user to choose between playing against another player, playing against the computer,
+     * playing a PGN file, or building a board
+     */
     public void setup() {
 
         setBounds(0,0,1366,768);

@@ -31,6 +31,9 @@ public class MenuSituationUI extends JPanel implements UI{
         setup();
     }
 
+    /**
+     * It creates the board, the pieces, the buttons, and the background
+     */
     public void setup() {
 
         selection = new JLabel[2][6];
@@ -144,7 +147,6 @@ public class MenuSituationUI extends JPanel implements UI{
                     @Override
                     public void mouseClicked(MouseEvent e) {
                         selected = pieces[finalI][finalJ];
-                        System.out.println(selected);
                         undrawYellow();
                         isYellow[finalI][finalJ] = true;
                         selection[finalI][finalJ].setBackground(Color.yellow);
@@ -189,6 +191,12 @@ public class MenuSituationUI extends JPanel implements UI{
         repaint();
     }
 
+    /**
+     * If the selected piece is not null, then set the piece at the given x and y coordinates to the selected piece
+     *
+     * @param x The x coordinate of the tile that was pressed
+     * @param y The y coordinate of the tile that was pressed.
+     */
     @Override
     public void tilePressed(int x, int y) {
         if (!Objects.equals(selected, "NN")) {
@@ -197,16 +205,30 @@ public class MenuSituationUI extends JPanel implements UI{
         }
     }
 
+    /**
+     * This function returns this.
+     *
+     * @return The component that is being returned is a JPanel.
+     */
     @Override
     public Component getComp() {
         return this;
     }
 
+    /**
+     * Returns the value of the dev variable in the op object in the ui object.
+     *
+     * @return The boolean value of the dev variable in the Options class.
+     */
     @Override
     public boolean getDev() {
         return ui.op.dev;
     }
 
+    /**
+     * For each of the two rows, for each of the six columns, set the background color of the JButton to either light or
+     * dark, depending on the row and column, and set the isYellow boolean to false.
+     */
     public void undrawYellow() {
         for (int i = 0; i < 2; i++) {
             for (int j = 0; j < 6; j++) {
@@ -216,12 +238,23 @@ public class MenuSituationUI extends JPanel implements UI{
         }
     }
 
+    /**
+     * Create a new thread that runs the Message class, passing in the message and seconds, and then start the thread.
+     *
+     * @param message The message to be displayed
+     * @param seconds The amount of time the message will be displayed for.
+     */
     public void showMessage(String message, int seconds) {
         Runnable runnable = new Message(this.message, message, seconds);
         Thread thread = new Thread(runnable);
         thread.start();
     }
 
+    /**
+     * If there is a white king and a black king on the board, return true
+     *
+     * @return A boolean value.
+     */
     public boolean isAlright() {
         boolean w = false;
         boolean b = false;
@@ -242,6 +275,9 @@ public class MenuSituationUI extends JPanel implements UI{
         return false;
     }
 
+    /**
+     * It removes all the pieces from the board
+     */
     public void resetBoard() {
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {

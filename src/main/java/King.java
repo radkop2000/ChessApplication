@@ -17,6 +17,11 @@ public class King implements Piece{
 //        hasMoved = false;
     }
 
+    /**
+     * The king can move one space in any direction, except for the spaces that are occupied by pieces of the same color
+     *
+     * @return An ArrayList of int arrays.
+     */
     @Override
     public ArrayList<int[]> possibleMoves() {
 

@@ -10,6 +10,10 @@ public class Computer {
         this.difficulty = difficulty;
     }
 
+    /**
+     * The function is called when the player makes a move. It creates a new thread that runs
+     * the appropriate AI algorithm based on the difficulty level
+     */
     public void nextTurn() {
         switch (difficulty) {
             case 0 -> {
@@ -27,6 +31,11 @@ public class Computer {
         }
     }
 
+    /**
+     * This function returns the color of the computer.
+     *
+     * @return The color of the car.
+     */
     public char getColor() {
         return color;
     }

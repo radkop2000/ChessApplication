@@ -37,6 +37,9 @@ public class DiceGameUI extends JPanel implements UI{
         add(background);
     }
 
+    /**
+     * It sets up the game mode panel
+     */
     public void setup() {
         setBounds(0,0,1366,768);
         setLayout(null);
@@ -160,16 +163,31 @@ public class DiceGameUI extends JPanel implements UI{
 
     }
 
+    /**
+     * Redraw the background image.
+     */
     public void redrawBackground() {
         add(background);
         repaint();
     }
 
+    /**
+     * This function sets the piece at the given x and y coordinates to the given piece.
+     *
+     * @param piece The piece you want to put on the board.
+     * @param x The x coordinate of the tile you want to put the piece on.
+     * @param y The y coordinate of the tile you want to put the piece on.
+     */
     public void putPiece(String piece, int x, int y) {
         tiles[x][y].setPiece(piece);
     }
 
 
+    /**
+     * It creates four JLabels, each with a different piece, and adds them to the board
+     *
+     * @param color the color of the piece that is being promoted
+     */
     public void showPromotion(char color) {
         JLabel queen = new JLabel();
         JLabel rook = new JLabel();
@@ -318,6 +336,14 @@ public class DiceGameUI extends JPanel implements UI{
 
     }
 
+    /**
+     * It removes the promotion pieces from the board
+     *
+     * @param queen the JLabel of the queen
+     * @param rook the rook image
+     * @param bishop the JLabel of the bishop icon
+     * @param horse The horse piece
+     */
     private void hidePromotion(JLabel queen, JLabel rook, JLabel bishop, JLabel horse) {
         remove(queen);
         remove(rook);
@@ -327,6 +353,13 @@ public class DiceGameUI extends JPanel implements UI{
     }
 
 
+    /**
+     * If the tile is highlighted, move the piece to that tile. If the tile is yellow, show the moves for that piece. If
+     * the tile is neither, reset the moves
+     *
+     * @param x the x coordinate of the tile that was pressed
+     * @param y the y coordinate of the tile that was pressed
+     */
     @Override
     public void tilePressed(int x, int y) {
         if (tiles[x][y].isHighlighted) {
@@ -358,6 +391,9 @@ public class DiceGameUI extends JPanel implements UI{
 
     }
 
+    /**
+     * It sets all the tiles to their default color
+     */
     public void resetMoves() {
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
@@ -366,20 +402,43 @@ public class DiceGameUI extends JPanel implements UI{
         }
     }
 
+    /**
+     * This function returns this
+     *
+     * @return The component that is being returned is this JPanel.
+     */
     @Override
     public Component getComp() {
         return this;
     }
 
+    /**
+     * Returns the value of the dev variable in the op object in the ui object.
+     *
+     * @return The boolean value of the dev variable in the Options class.
+     */
     @Override
     public boolean getDev() {
         return ui.op.dev;
     }
 
+    /**
+     * Remove the piece at the given coordinates.
+     *
+     * @param x The x coordinate of the tile you want to remove a piece from.
+     * @param y The y coordinate of the tile to remove the piece from.
+     */
     public void removePiece(int x, int y) {
         tiles[x][y].removePiece();
     }
 
+    /**
+     * It takes in a position on the board and shows all the possible moves that piece can make without putting
+     * the king in check
+     *
+     * @param x the x coordinate of the piece
+     * @param y the y coordinate of the piece
+     */
     private void showMoves(int x, int y) {
         ArrayList<int[]> moves = board.movesWithoutCheck(x, y);
         for (int[] move : moves) {
@@ -387,6 +446,9 @@ public class DiceGameUI extends JPanel implements UI{
         }
     }
 
+    /**
+     * It resets the highlight of all the tiles
+     */
     public void resetHighlight() {
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
@@ -395,6 +457,9 @@ public class DiceGameUI extends JPanel implements UI{
         }
     }
 
+    /**
+     * It updates the turn and turnOf labels
+     */
     public void updateText() {
         turnLabel.setText(String.valueOf(board.turn/2 + 1));
         if (board.turnOf == 'W') {
@@ -404,6 +469,12 @@ public class DiceGameUI extends JPanel implements UI{
         }
     }
 
+    /**
+     * Create a new thread that runs the Message class, passing in the message and seconds, and then start the thread.
+     *
+     * @param message The message to be displayed
+     * @param seconds The amount of time the message will be displayed for.
+     */
     public void showMessage(String message, int seconds) {
         Runnable runnable = new Message(this.message, message, seconds);
         Thread thread = new Thread(runnable);

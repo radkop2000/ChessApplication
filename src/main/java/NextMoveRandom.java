@@ -11,6 +11,9 @@ public class NextMoveRandom implements Runnable {
         this.color = color;
     }
 
+    /**
+     * It makes a random move
+     */
     @Override
     public void run() {
         Random rand = new Random();

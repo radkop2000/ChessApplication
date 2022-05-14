@@ -6,13 +6,18 @@ public class devHandler implements ActionListener {
     Board board;
 
     public devHandler(Board board) {
-        System.out.println("DEVHANDLER " + board);
         this.board = board;
     }
 
+    /**
+     * The actionPerformed function takes the action command of the button that was pressed, and uses the first two
+     * characters to determine the piece type, and the last two characters to determine the x and y coordinates of the
+     * button that was pressed
+     *
+     * @param e the ActionEvent that triggered the actionPerformed method
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
-        System.out.println("DEVHANDLER " + board);
         String choice = e.getActionCommand().substring(0,2);
         int x = Integer.parseInt(e.getActionCommand().substring(2,3));
         int y = Integer.parseInt(e.getActionCommand().substring(3,4));

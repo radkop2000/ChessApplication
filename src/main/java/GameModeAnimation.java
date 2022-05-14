@@ -25,6 +25,12 @@ public class GameModeAnimation implements Runnable {
         panel.add(tile);
     }
 
+    /**
+     * This function is called when the user clicks on a button to make a move. It sets the nextMove variable to the move
+     * the user wants to make, and then starts a new thread to animate the move.
+     *
+     * @param nextMove The next move to be made.
+     */
     public void NextAnimation(int[] nextMove) {
         this.nextMove = nextMove;
         nextMoveIsCh = false;
@@ -32,6 +38,12 @@ public class GameModeAnimation implements Runnable {
         thread.start();
     }
 
+    /**
+     * This function is called when the user presses a key on the keyboard. It sets the nextMoveCh variable to the
+     * character that was pressed, and then starts a new thread that will run the animation
+     *
+     * @param nextMoveCh The character that the player is trying to move to.
+     */
     public void NextAnimation(char nextMoveCh) {
         this.nextMoveCh = nextMoveCh;
         nextMoveIsCh = true;
@@ -39,12 +51,20 @@ public class GameModeAnimation implements Runnable {
         thread.start();
     }
 
+    /**
+     * Stop the thread and highlight the move on the board.
+     *
+     * @param mode 0 = normal, 1 = win, 2 = lose
+     */
     private void stop(int mode) {
-        System.out.println("STOPPING THREAD");
         board.highlight(mode);
         thread.stop();
     }
 
+    /**
+     * It randomly changes the piece icon on the tile for a random amount of time, and then changes it to the correct piece
+     * icon
+     */
     @Override
     public void run() {
         int mode;

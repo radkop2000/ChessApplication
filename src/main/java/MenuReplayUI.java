@@ -18,6 +18,9 @@ public class MenuReplayUI extends JPanel {
         setup();
     }
 
+    /**
+     * It sets up the panel, adds the text area, the load button, the back button, the file chooser, and the button chooser
+     */
     public void setup() {
         setBounds(0, 0, 1366, 768);
         setLayout(null);
@@ -138,6 +141,10 @@ public class MenuReplayUI extends JPanel {
         repaint();
     }
 
+    /**
+     * "If the user selects a file, load the PGN from that file and show the game panel."
+     *
+     */
     public void chooseFile() {
         int r = fileChooser.showOpenDialog(null);
         if (r == JFileChooser.APPROVE_OPTION) {

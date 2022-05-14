@@ -15,6 +15,13 @@ public class Bishop implements Piece{
         this.y = y;
     }
 
+    /**
+     * For each of the 4 directions, check if the piece is in the board and if it's empty or not. If it's empty, add it to
+     * the list of possible moves. If it's not empty, check if it's an enemy piece. If it is, add it to the list of
+     * possible moves
+     *
+     * @return An ArrayList of int arrays.
+     */
     @Override
     public ArrayList<int[]> possibleMoves() {
         ArrayList<int[]> moves = new ArrayList<>();
@@ -36,6 +43,7 @@ public class Bishop implements Piece{
         return moves;
     }
 
+    // Overriding the methods in the Piece interface.
     @Override
     public void setX(int x) {
         this.x = x;

@@ -2,6 +2,7 @@ import javax.swing.*;
 
 public class ManagerUI {
 
+    // A list of constants that are used to identify the different panels.
     public static final int MENU_MAIN =             0;
     public static final int MENU_PLAY_BUILDER =     1;
     public static final int MENU_PLAY_END_GAME =    2;
@@ -46,6 +47,11 @@ public class ManagerUI {
         showPanel(MENU_MAIN);
     }
 
+    /**
+     * It shows a panel
+     *
+     * @param panel the panel to show
+     */
     public void showPanel(int panel) {
 /*
 0   MenuMainUI
@@ -83,6 +89,12 @@ public class ManagerUI {
         }
     }
 
+    /**
+     * This function is called when the game ends, and it shows the end game panel.
+     *
+     * @param panel The panel that the game is being played on.
+     * @param winner The winner of the game.
+     */
     public void endGame(JPanel panel, char winner) {
         showPanel(ManagerUI.MENU_PLAY_END_GAME);
         endGame.endGame(panel, winner);

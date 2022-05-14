@@ -11,6 +11,9 @@ public class MenuMainUI extends JPanel{
         setup();
     }
 
+    /**
+     * It creates a bunch of buttons and adds them to the panel
+     */
     public void setup() {
         setBounds(0,0, 1366, 768);
         setLayout(null);
@@ -49,7 +52,7 @@ public class MenuMainUI extends JPanel{
 
                                          }
                                      });
-                add(buttonStart);
+        add(buttonStart);
 
         JLabel button = new JLabel();
         button.setBounds(80,408,240,42);

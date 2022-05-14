@@ -24,6 +24,9 @@ public class ReplayUI extends JPanel implements UI {
     }
 
 
+    /**
+     * It creates the GUI for the replay menu
+     */
     public void setup() {
         setBounds(0,0,1366,768);
         setLayout(null);
@@ -189,20 +192,39 @@ public class ReplayUI extends JPanel implements UI {
         repaint();
     }
 
+    /**
+     * this function is not used in this implementation
+     */
     @Override
     public void tilePressed(int x, int y) {}
 
+    /**
+     * This function returns the component that the user is currently on.
+     *
+     * @return The component that is being returned is the JPanel.
+     */
     @Override
     public Component getComp() {
         return this;
     }
 
+    /**
+     * Returns the value of the dev variable in the op object in the ui object.
+     *
+     * @return The boolean value of the dev variable in the Options class.
+     */
     @Override
     public boolean getDev() {
         return ui.op.dev;
     }
 
 
+    /**
+     * Create a new thread that runs the Message class, passing in the message and seconds, and then start the thread.
+     *
+     * @param message The message to be displayed
+     * @param seconds The amount of time the message will be displayed for.
+     */
     public void showMessage(String message, int seconds) {
         Runnable runnable = new Message(this.message, message, seconds);
         Thread thread = new Thread(runnable);
@@ -210,24 +232,45 @@ public class ReplayUI extends JPanel implements UI {
     }
 
 
+    /**
+     * This function sets the piece at the given x and y coordinates to the given piece.
+     *
+     * @param piece The piece you want to put on the board.
+     * @param x The x coordinate of the tile you want to put the piece on.
+     * @param y The y coordinate of the tile you want to put the piece on.
+     */
     public void putPiece(String piece, int x, int y) {
         tiles[x][y].setPiece(piece);
     }
 
+    /**
+     * Remove the piece at the given coordinates.
+     *
+     * @param x The x coordinate of the tile you want to remove a piece from.
+     * @param y The y coordinate of the tile to remove the piece from.
+     */
     public void removePiece(int x, int y) {
         tiles[x][y].removePiece();
     }
 
+    /**
+     * It updates the text of the turnLabel and turnOfLabel
+     */
     public void updateText() {
         turnLabel.setText(String.valueOf(board.pgn.moveNum/2 + 1));
         turnOfLabel.setText(board.pgn.moveNum % 2 == 0 ? "White" : "Black");
     }
 
+    /**
+     * It takes a string, and if it's a number, it moves to that turn number, if it's "end", it moves to the end, and if
+     * it's neither, it shows an error message
+     *
+     * @param jumpTo The turn number to jump to.
+     */
     public void jumpTo(String jumpTo) {
         int jump;
         try {
             jump = Integer.parseInt(jumpTo);
-            System.out.println("JUMP   " + jump);
             if (jump < 0) {
                 throw new IllegalArgumentException();
             }

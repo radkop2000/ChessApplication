@@ -11,6 +11,9 @@ public class NextMoveEasy implements Runnable {
         this.color = color;
     }
 
+    /**
+     * It makes a random move, with hecking if the move is a capture move and if it is, it will make that move.
+     */
     @Override
     public void run() {
         Random random = new Random();

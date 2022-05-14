@@ -12,6 +12,10 @@ public class Message implements Runnable{
         this.seconds = seconds;
     }
 
+    /**
+     * The function takes in a JTextField and a String and sets the text of the JTextField to the String for a certain
+     * amount of time
+     */
     @Override
     public void run() {
         field.setText(message);

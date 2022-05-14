@@ -1,6 +1,8 @@
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class BoardDice implements Board{
 
@@ -26,6 +28,9 @@ public class BoardDice implements Board{
         setup();
     }
 
+    /**
+     * It sets all the pieces on the board to null
+     */
     public void setup() {
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
@@ -34,6 +39,12 @@ public class BoardDice implements Board{
         }
     }
 
+    /**
+     * The heuristic function is a function that takes in a board and returns a number that represents how good the board
+     * is for the player
+     *
+     * @return The heuristic value of the board.
+     */
     public int boardHeuristic() {
         int heuristic = 0;
         for (int k = 0; k < 8; k++) {
@@ -48,6 +59,13 @@ public class BoardDice implements Board{
         return heuristic;
     }
 
+    /**
+     * It puts a piece on the board
+     *
+     * @param piece The piece to be placed.
+     * @param x The x coordinate of the piece
+     * @param y The y coordinate of the piece.
+     */
     public void putPiece(String piece, int x, int y) {
         ui.putPiece(piece, x, y);
         switch (piece.charAt(1)) {
@@ -61,11 +79,20 @@ public class BoardDice implements Board{
         }
     }
 
+    /**
+     * Remove the piece at the given coordinates from the board and from the UI.
+     *
+     * @param x The x coordinate of the piece to be removed.
+     * @param y The y coordinate of the piece to remove.
+     */
     public void removePiece(int x, int y) {
         ui.removePiece(x, y);
         pieces[x][y] = null;
     }
 
+    /**
+     * It sets up the board for a classic game of chess
+     */
     public void setupClassic() {
         char[] pieces = {'R', 'H', 'B', 'Q', 'K', 'B', 'H', 'R'};
         for (int i = 0; i < 8; i++) {
@@ -84,6 +111,14 @@ public class BoardDice implements Board{
         generateNextMove();
     }
 
+    /**
+     *
+     * The heuristic function is a function that takes a piece and returns a number that represents how valuable that piece
+     * is
+     *
+     * @param piece The piece that is being evaluated.
+     * @return The heuristic value of the piece.
+     */
     public int heuristic(char piece) {
         switch (piece) {
             case 'P' -> {
@@ -105,6 +140,12 @@ public class BoardDice implements Board{
         return 0;
     }
 
+    /**
+     * It moves a piece from one square to another
+     *
+     * @param x The x coordinate of the square the piece is being moved to.
+     * @param y the y coordinate of the square the piece is being moved to
+     */
     public void move(int x, int y) {
 
         if (getPiece(clickedOn[0], clickedOn[1]) == 'K' && Math.abs(clickedOn[1]-y) == 2) {
@@ -127,12 +168,22 @@ public class BoardDice implements Board{
         }
     }
 
+    /**
+     * If the pawn is on the fifth rank, and the pawn is moving two spaces, then the pawn is allowed to capture the enemy
+     * pawn that is directly besides it
+     *
+     * @param y the y coordinate of the piece that was captured
+     */
     private void enPassant(int y) {
         putPiece("NN", clickedOn[0], clickedOn[1] - (clickedOn[1] - y));
     }
 
+    /**
+     * If the king is in the right place, move the rook to the right place
+     *
+     * @param y the y coordinate of the square the piece is moving to
+     */
     private void castle(int y) {
-        System.out.println("CASTLING");
         if (clickedOn[0] == 0 && y == 2) {
             putPiece("BR", 0, 3);
             removePiece(0,0);
@@ -146,10 +197,16 @@ public class BoardDice implements Board{
             putPiece("WR", 7, 5);
             removePiece(7,7);
         } else {
-            System.out.println("OOF");
+            Logger.getLogger(Logger.GLOBAL_LOGGER_NAME).log(Level.SEVERE, "COULDNT CASTLE");
         }
     }
 
+    /**
+     * If the move is a capital letter, make it lowercase. If the move is a lowercase letter, make it uppercase
+     *
+     * @param move The move that the player wants to make.
+     * @return the opposite of the input.
+     */
     private char smallMove(char move) {
         if (move == 'W') {
             return 'w';
@@ -162,6 +219,11 @@ public class BoardDice implements Board{
         }
     }
 
+    /**
+     * If a pawn is at the end of the board, replace it with the piece specified by the parameter
+     *
+     * @param toPiece The piece to promote to.
+     */
     public void promote(char toPiece) {
         for (int i = 0; i < 8; i++) {
             if (getPiece(0, i) == 'P') {
@@ -174,6 +236,9 @@ public class BoardDice implements Board{
         endTurn();
     }
 
+    /**
+     * It checks if the game is over, if it is, it ends the game. If it isn't, it generates the next move
+     */
     public void endTurn() {
 
         turnOf = not(turnOf);
@@ -191,6 +256,9 @@ public class BoardDice implements Board{
 
     }
 
+    /**
+     * It generates a random move for the player to make
+     */
     public void generateNextMove() {
 
         Random rand = new Random();
@@ -215,8 +283,7 @@ public class BoardDice implements Board{
             nextMoveXY = possibleMoves.get(rand.nextInt(0, possibleMoves.size()));
 
             anim.NextAnimation(nextMoveXY);
-//            highlight(1);
-//            ui.tiles[nextMoveXY[0]][nextMoveXY[1]].highlight();
+
         } else {
 
             ArrayList<Character> possibleMoves = new ArrayList<>();
@@ -233,24 +300,21 @@ public class BoardDice implements Board{
 
             anim.NextAnimation(nextMoveC);
 
-//            highlight(2);
-//            for (int i = 0; i < 8; i++) {
-//                for (int j = 0; j < 8; j++) {
-//                    if (getPiece(i, j) == nextMoveC && getColor(i, j) == turnOf) {
-//                        if (movesWithoutCheck(i,j).size() > 0) {
-//                            ui.tiles[i][j].highlight();
-//                        }
-//                    }
-//                }
-//            }
         }
     }
 
+    /**
+     * If the game is over, then the game is ended
+     */
     public void endGame() {
-
         ui.ui.endGame(ui, isPat() ? 'N' : not(turnOf));
     }
 
+    /**
+     * If the king can't be captured, then it's a pat.
+     *
+     * @return A boolean value.
+     */
     private boolean isPat() {
         int[] king = findKing(turnOf);
         for (int i = 0; i < 8; i++) {
@@ -268,13 +332,17 @@ public class BoardDice implements Board{
         return true;
     }
 
+    /**
+     * If the mode is 1, highlight the tile that the piece will move to. If the mode is 2, highlight all the pieces of
+     * that type that can move
+     *
+     *
+     * @param mode 1 = highlight one piece, 0 = highlight all possible pieces of the same type
+     */
     public void highlight(int mode) {
-        System.out.println("mode: " + mode);
         if (mode == 1) {
-            System.out.println("mode1 executing");
             ui.tiles[nextMoveXY[0]][nextMoveXY[1]].highlight();
         } else {
-            System.out.println("modeElse executing");
             for (int i = 0; i < 8; i++) {
                 for (int j = 0; j < 8; j++) {
                     if (getPiece(i, j) == nextMoveC && getColor(i, j) == turnOf) {
@@ -287,16 +355,29 @@ public class BoardDice implements Board{
         }
     }
 
+    /**
+     * This function sets the clickedOn array to the fromX and fromY values, and then calls the move function with the toX
+     * and toY values.
+     *
+     * @param fromX The x coordinate of the piece you want to move
+     * @param fromY The y coordinate of the piece you want to move
+     * @param toX The x coordinate of the square you want to move to.
+     * @param toY The y coordinate of the square to move to.
+     */
     public void move(int fromX, int fromY, int toX, int toY) {
         clickedOn[0] = fromX;
         clickedOn[1] = fromY;
         move(toX, toY);
     }
 
-    public void setupPGN(int move) {
-        // TODO (if move == -1 => setup until end)
-    }
-
+    /**
+     * If the piece at the given coordinates is null, return 'N', otherwise return the first character of the class name of
+     * the piece
+     *
+     * @param x The x coordinate of the piece you're trying to reference
+     * @param y The y coordinate of the piece you want to get.
+     * @return The first letter of the class name of the piece at the given position.
+     */
     public char getPiece(int x, int y) {
         if (pieces[x][y] == null) {
             return 'N';
@@ -304,6 +385,14 @@ public class BoardDice implements Board{
         return pieces[x][y].getClass().getName().charAt(0);
     }
 
+    /**
+     * If there is no piece at the given location, return 'N', otherwise return the color of the piece at the given
+     * location.
+     *
+     * @param x the x-coordinate of the piece
+     * @param y the y coordinate of the piece
+     * @return The color of the piece at the given position.
+     */
     public char getColor(int x, int y) {
         if (pieces[x][y] == null) {
             return 'N';
@@ -312,6 +401,11 @@ public class BoardDice implements Board{
     }
 
 
+    /**
+     * If there are no possible moves for any piece of the current player, then the game is over
+     *
+     * @return true if the game is over
+     */
     public boolean isCheckMate() {
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
@@ -323,10 +417,18 @@ public class BoardDice implements Board{
         return true;
     }
 
+    /**
+     * Return a list of all possible moves for a piece at a given location, with checking for check.
+     *
+     * @param fromX The x coordinate of the piece you want to move
+     * @param fromY The y coordinate of the piece you want to move
+     * @return An ArrayList of int arrays.
+     */
     public ArrayList<int[]> movesWithoutCheck(int fromX, int fromY) {
         return movesWithoutCheck(pieces[fromX][fromY].possibleMoves(), fromX, fromY);
     }
 
+    // Overriding the methods in the interface.
     @Override
     public int getRound() {
         return 0;
@@ -342,6 +444,14 @@ public class BoardDice implements Board{
         // TODO
     }
 
+    /**
+     * It takes in a list of moves and a starting position, and returns a list of moves that don't put the king in check
+     *
+     * @param moves the list of possible moves
+     * @param fromX the x coordinate of the piece you want to move
+     * @param fromY the y coordinate of the piece you want to move
+     * @return An arraylist of moves that do not put the king in check.
+     */
     public ArrayList<int[]> movesWithoutCheck(ArrayList<int[]> moves, int fromX, int fromY) {
 
 
@@ -382,12 +492,15 @@ public class BoardDice implements Board{
             pieces[fromX][fromY] = temp1;
             pieces[move[0]][move[1]] = temp2;
         }
-
-
-
         return newMoves;
     }
 
+    /**
+     * Find the king of the given color and return its position.
+     *
+     * @param color The color of the king you want to find.
+     * @return The row and column of the king of the given color.
+     */
     public int[] findKing(char color) {
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
@@ -409,6 +522,12 @@ public class BoardDice implements Board{
         return piece.getClass().getName().charAt(0);
     }
 
+    /**
+     * If the color is white, return black, otherwise return white.
+     *
+     * @param color The color of the piece you want to flip.
+     * @return The opposite color of the color that is passed in.
+     */
     public char not(char color) {
         if (color == 'W' || color == 'w') {
             return 'B';

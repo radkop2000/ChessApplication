@@ -15,6 +15,14 @@ public class Pawn implements Piece{
         this.y = y;
     }
 
+    /**
+     * If the piece is white, it can move up one space, or up two spaces if it's in the starting position, or it can
+     * capture a black piece diagonally, or it can capture a black pawn that has just moved two spaces. If the piece is
+     * black, it can move down one space, or down two spaces if it's in the starting position, or it can capture a white
+     * piece diagonally, or it can capture a white pawn that has just moved two spaces
+     *
+     * @return An ArrayList of int arrays.
+     */
     @Override
     public ArrayList<int[]> possibleMoves() {
         ArrayList<int[]> moves = new ArrayList<>();
@@ -52,6 +60,7 @@ public class Pawn implements Piece{
             if (x == 4 && y > 0 && board.getPiece(4,y-1) == 'P' && board.getColor(4, y-1) == 'W') {
                 moves.add(new int[]{5,y-1});
             }
+    // Overriding the methods in the Piece interface.
             if (x == 4 && y < 7 && board.getPiece(4,y+1) == 'P' && board.getColor(4, y+1) == 'W') {
                 moves.add(new int[]{5,y+1});
             }
@@ -60,6 +69,7 @@ public class Pawn implements Piece{
         return moves;
     }
 
+    // Overriding the methods in the Piece interface.
     @Override
     public void setX(int x) {
         this.x = x;

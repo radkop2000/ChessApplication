@@ -15,6 +15,12 @@ public class Queen implements Piece{
         this.y = y;
     }
 
+    /**
+     * For each of the 8 directions, check if the next square is empty, and if so, add it to the list of possible moves. If
+     * the next square is occupied by an enemy piece, add it to the list of possible moves
+     *
+     * @return An ArrayList of possible moves.
+     */
     @Override
     public ArrayList<int[]> possibleMoves() {
 
@@ -38,6 +44,7 @@ public class Queen implements Piece{
         return moves;
     }
 
+    // Overriding the methods in the Piece interface.
     @Override
     public void setX(int x) {
         this.x = x;

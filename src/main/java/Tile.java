@@ -80,15 +80,27 @@ public class Tile extends JLabel {
         setOpaque(true);
     }
 
+    /**
+     * This function takes in a string, and sets the icon of the JButton to the image of the piece that corresponds to the
+     * string
+     *
+     * @param piece The name of the piece you want to set.
+     */
     public void setPiece(String piece) {
         ImageIcon icon = new ImageIcon("src/main/resources/Pieces/" + piece + ".png");
         setIcon(icon);
     }
 
+    /**
+     * This function removes the piece from the board.
+     */
     public void removePiece() {
         setIcon(null);
     }
 
+    /**
+     * If the button is yellow, do nothing. If the button is light, make it darker. If the button is dark, make it darker
+     */
     public void mouseOn() {
         if (isYellow) {
             return;
@@ -100,6 +112,9 @@ public class Tile extends JLabel {
         }
     }
 
+    /**
+     * If the button is yellow, or highlighted, do nothing. Otherwise, set the background to default
+     */
     public void mouseOff() {
         if (isYellow) {
             return;
@@ -114,6 +129,9 @@ public class Tile extends JLabel {
         }
     }
 
+    /**
+     * If the button is light, set the background to lightDarker, otherwise set the background to darkDarker
+     */
     public void setDarker() {
         if (isLight) {
             setBackground(lightDarker);
@@ -124,6 +142,9 @@ public class Tile extends JLabel {
         isYellow = false;
     }
 
+    /**
+     * If the square is light, set the background to light, otherwise set the background to dark
+     */
     public void setLigher() {
         if (isLight) {
             setBackground(light);
@@ -134,12 +155,18 @@ public class Tile extends JLabel {
         isYellow = false;
     }
 
+    /**
+     * If the light is not yellow, then set it to be lighter.
+     */
     public void setLighterNoYellow() {
         if (!isYellow) {
             setLigher();
         }
     }
 
+    /**
+     * If the tile is not highlighted, highlight it and set the isYellow boolean to true.
+     */
     public void highlight() {
         setBackground(Color.yellow);
         isHighlighted = false;

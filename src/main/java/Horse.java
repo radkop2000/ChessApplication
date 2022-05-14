@@ -15,6 +15,12 @@ public class Horse implements Piece{
         this.y = y;
     }
 
+    /**
+     * If the piece is moving two spaces in one direction and one space in the other, and the destination is not occupied
+     * by a piece of the same color, then it is a valid move
+     *
+     * @return An ArrayList of valid moves.
+     */
     @Override
     public ArrayList<int[]> possibleMoves() {
         ArrayList<int[]> moves = new ArrayList<int[]>();
@@ -29,6 +35,7 @@ public class Horse implements Piece{
         return moves;
     }
 
+    // Overriding the methods in the Piece interface.
     @Override
     public void setX(int x) {
         this.x = x;

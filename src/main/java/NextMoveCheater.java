@@ -12,6 +12,10 @@ public class NextMoveCheater implements Runnable {
         this.color = color;
     }
 
+
+    /**
+     * It makes a random move, with a loop that will keep adding queens to the board until the heuristic is positive.
+     */
     @Override
     public void run() {
         Random rand = new Random();
@@ -31,7 +35,6 @@ public class NextMoveCheater implements Runnable {
 
                             if (counter++ > num) {
                                 board.move(i, j, move[0], move[1]);
-                                System.out.println(board.boardHeuristic());
                                 while (board.boardHeuristic() < 0) {
                                     for (int k = 0; k < 8; k++) {
                                         for (int l = 0; l < 8; l++) {

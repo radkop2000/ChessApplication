@@ -5,6 +5,8 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class MenuSettingsUI extends JPanel{
 
@@ -28,6 +30,9 @@ public class MenuSettingsUI extends JPanel{
         dev = ui.op.dev;
     }
 
+    /**
+     * It sets up the settings panel
+     */
     public void setup() {
         setBounds(0,0,1366,768);
         setLayout(null);
@@ -160,10 +165,18 @@ public class MenuSettingsUI extends JPanel{
         add(background);
     }
 
+    /**
+     * If the developer mode is on, set the text color to green, otherwise set it to red.
+     */
     public void setDevText() {
         buttonDev.setForeground(ui.op.dev ? Color.green.darker() : Color.red);
     }
 
+    /**
+     * If the computer difficulty is 0, set the text to "ComputerDifficulty: Random", set the color to green, else if the
+     * computer difficulty is 1, set the text to "ComputerDifficulty: Easy", set the color to orange, else if the computer
+     * difficulty is 2, set the text to "ComputerDifficulty: Cheater", set the color to red
+     */
     public void setComputerText() {
         if (ui.op.computerDifficulty == 0) {
             buttonComputer.setText("ComputerDifficulty: Random");
@@ -177,6 +190,9 @@ public class MenuSettingsUI extends JPanel{
         }
     }
 
+    /**
+     * It sets the text of the buttonMode JButton to the current game mode
+     */
     public void setModeText() {
         if (ui.op.gameMode == 0) {
             buttonMode.setText("GameMode: Random type of piece");
@@ -187,14 +203,21 @@ public class MenuSettingsUI extends JPanel{
         }
     }
 
+    /**
+     * If the clock is on, set the clock button to green, otherwise set it to red
+     */
     public void setClockText() {
         if (ui.op.clock) {
             buttonClock.setForeground(Color.green.darker());
         } else {
             buttonClock.setForeground(Color.red);
+    // Saving the settings to a file.
         }
     }
 
+    /**
+     * Saving the settings to a file.
+     */
     public void save() {
         BufferedWriter writer;
         String str = String.format("""
@@ -212,10 +235,13 @@ public class MenuSettingsUI extends JPanel{
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-
+        Logger.getLogger(Logger.GLOBAL_LOGGER_NAME).log(Level.INFO, "Settings:\n" + str);
     }
 
+
+    /**
+     * Resetting the settings to default.
+     */
     public void resetSettings() {
         ui.op.dev = false;
         ui.op.computerDifficulty = 0;
@@ -231,11 +257,19 @@ public class MenuSettingsUI extends JPanel{
         setAnimationText();
     }
 
+
+    /**
+     * It sets the text of the buttonClockTime JButton to the corresponding time from an array.
+     */
     public void setClockTime() {
         int[] time = {1,3,5,10,15,60};
         buttonClockTime.setText("Time on clock: " + time[ui.op.clockTime] + " minutes");
     }
 
+
+    /**
+     * It sets the text of the buttonAnimation JButton to the current animation setting.
+     */
     public void setAnimationText() {
         buttonAnimation.setForeground(ui.op.animation ? Color.green.darker() : Color.red);
     }

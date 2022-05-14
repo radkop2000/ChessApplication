@@ -1,6 +1,6 @@
 dev 0
-computerDifficulty 2
-gameMode 1
+computerDifficulty 0
+gameMode 0
 clock 1
 clockTime 0
-animation 1
+animation 0

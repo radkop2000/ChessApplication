@@ -5,6 +5,8 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class MenuSettingsUI extends JPanel{
 
@@ -233,6 +235,7 @@ public class MenuSettingsUI extends JPanel{
         } catch (IOException e) {
             e.printStackTrace();
         }
+        Logger.getLogger(Logger.GLOBAL_LOGGER_NAME).log(Level.INFO, "Settings:\n" + str);
     }
 
 

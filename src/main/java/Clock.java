@@ -2,6 +2,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Clock implements Runnable {
 
@@ -53,6 +55,7 @@ public class Clock implements Runnable {
         secW = 0;
         secB = 0;
         updateTime();
+        Logger.getLogger(Logger.GLOBAL_LOGGER_NAME).log(Level.INFO, "Clock started with " + minW + " minutes");
 
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("ss");
         LocalDateTime last = LocalDateTime.now();

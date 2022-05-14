@@ -80,6 +80,8 @@ public class Operator {
         clock = Integer.parseInt(dict.get("clock")) == 1;
         clockTime = Integer.parseInt(dict.get("clockTime"));
         animation = Integer.parseInt(dict.get("animation")) == 1;
+        String settingsLog = new String(String.format("Settings:\ndev: %b\ncomputerDifficulty: %d\ngameMode: %d\nclock: %b\nclockTime: %d\nanimation: %b", dev, computerDifficulty, gameMode, clock, clockTime, animation));
+        Logger.getLogger(Logger.GLOBAL_LOGGER_NAME).log(Level.INFO, settingsLog);
     }
 
     public static void main(String[] args) {

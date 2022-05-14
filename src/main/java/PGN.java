@@ -13,6 +13,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class PGN {
 
@@ -92,7 +94,7 @@ public class PGN {
     }
 
     /**
-     * It checks if the move is ambiguous, and if it is, it adds the move to the PGN
+     * It checks if the move is ambiguous, and it adds the move to the PGN
      *
      * @param fromX The x coordinate of the piece that is moving
      * @param fromY The y coordinate of the piece that is moving
@@ -164,6 +166,7 @@ public class PGN {
         StringSelection stringSelection = new StringSelection(myString);
         Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
         clipboard.setContents(stringSelection, null);
+        Logger.getLogger(Logger.GLOBAL_LOGGER_NAME).log(Level.INFO, "Copied PGN:\n" + myString);
     }
 
     /**
@@ -177,6 +180,7 @@ public class PGN {
         BufferedWriter writer = new BufferedWriter(new FileWriter("src/main/pgnFiles/" + format.format(date) + ".pgn"));
         writer.write(str);
         writer.close();
+        Logger.getLogger(Logger.GLOBAL_LOGGER_NAME).log(Level.INFO, "Saved PGN:\n" + str);
     }
 
     /**

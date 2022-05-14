@@ -1,5 +1,7 @@
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class devHandler implements ActionListener {
 
@@ -22,5 +24,6 @@ public class devHandler implements ActionListener {
         int x = Integer.parseInt(e.getActionCommand().substring(2,3));
         int y = Integer.parseInt(e.getActionCommand().substring(3,4));
         board.putPiece(choice, x,y);
+        Logger.getLogger(Logger.GLOBAL_LOGGER_NAME).log(Level.INFO, "Spawned piece: " + choice);
     }
 }

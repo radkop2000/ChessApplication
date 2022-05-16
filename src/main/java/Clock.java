@@ -62,7 +62,9 @@ public class Clock implements Runnable {
         while (minW >= 0 && minB >= 0) {
             LocalDateTime now = LocalDateTime.now();
             if (!dtf.format(last).equals(dtf.format(now))) {
-                timeMinus(board.getTurnOf());
+                if (timeMinus(board.getTurnOf())) {
+                    return;
+                }
                 updateTime();
             }
             last = now;
@@ -78,22 +80,25 @@ public class Clock implements Runnable {
      *
      * @param color the color of the player whose time is being decreased
      */
-    private void timeMinus(char color) {
+    private boolean timeMinus(char color) {
         if (color == 'W') {
             if (--secW < 0) {
                 secW = 59;
                 if (--minW < 0) {
-                    board.endGameTime('W');
+                    endTime('W');
+                    return true;
                 }
             }
         } else {
             if (--secB < 0) {
                 secB = 59;
                 if (--minB < 0) {
-                    board.endGameTime('B');
+                    endTime('W');
+                    return true;
                 }
             }
         }
+        return false;
     }
 
     /**
@@ -104,5 +109,17 @@ public class Clock implements Runnable {
         timeB.setText(minB + ":" + secB);
     }
 
+    /**
+     * If the player is out of time, the textview will display "out of time"
+     *
+     * @param ch the color of the player whose time has run out
+     */
+    private void endTime(char ch) {
+        if (ch == 'W') {
+            timeW.setText("out of time");
+        } else {
+            timeB.setText("out of time");
+        }
+    }
 
 }

@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-public class BoardReplay implements Board{
+public class BoardReplay implements Board {
 
     ReplayUI ui;
     PGN pgn;

@@ -17,7 +17,7 @@ public class GameUI extends JPanel implements UI{
     JLabel turnOfLabel;
     JLabel message;
     public BoardGame board;
-    Tile[][] tiles = new Tile[8][8];
+    public Tile[][] tiles = new Tile[8][8];
 
     Color light = new Color(180, 123, 0);
     Color lightDarker = light.darker().darker();

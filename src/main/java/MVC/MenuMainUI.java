@@ -7,6 +7,7 @@ public class MenuMainUI extends JPanel{
 
     ManagerUI ui;
     public JLabel buttonStart;
+    public JLabel buttonReplay;
 
     public MenuMainUI(ManagerUI ui) {
         this.ui = ui;
@@ -86,7 +87,7 @@ public class MenuMainUI extends JPanel{
         });
         add(button);
 
-        JLabel buttonReplay = new JLabel();
+        buttonReplay = new JLabel();
         buttonReplay.setBounds(80, 472, 289, 53);
         buttonReplay.addMouseListener(new MouseListener() {
             @Override

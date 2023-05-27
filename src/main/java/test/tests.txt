@@ -51,3 +51,4 @@ Integrační testy
         Setup Board Test: Ensure that a game can be successfully initiated with two players. Test for the correct assignment of colors (white, black) and initial positions of pieces.
         config.txt test
 
+/Users/radovan/Desktop/TS1/semestral/ChessApplication/src/main/java/MVC/Operator.java

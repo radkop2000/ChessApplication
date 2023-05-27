@@ -515,7 +515,6 @@ public class BoardGame implements Board {
             thread.interrupt();
         }
         pgn.end = isPat() ? 2 : not(turnOf) == 'W' ? 0 : 1;
-        System.out.println("PGN END" + pgn.end);
         ui.ui.endGame(ui, isPat() ? 'N' : not(turnOf));
     }
 

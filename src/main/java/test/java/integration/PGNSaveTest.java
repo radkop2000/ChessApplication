@@ -103,11 +103,11 @@ public class PGNSaveTest {
         move('B', 5,2,6,1,-1);
 
         move('W', 1,1,0,0,-1);
-        clicker.simulateClick(220 + -1 * 94 + 44, 7 + 2 * 94 + 44 + 44);
+        clicker.simulatePromotionClick(0);
         sleep(50);
 
         move('B', 6,1,7,0,-1);
-        clicker.simulateClick(220 + -1 * 94 + 44, 7 + 2 * 94 + 44 + 44);
+        clicker.simulatePromotionClick(0);
         sleep(50);
 
         Assertions.assertEquals("[Event \"Chess Game\"]\n" +

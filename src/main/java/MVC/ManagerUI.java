@@ -22,7 +22,7 @@ public class ManagerUI {
     public MenuMainUI main;
     MenuSituationUI builder;
     MenuPlayEndGameUI endGame;
-    MenuPlayPGNUI playPGN;
+    public MenuPlayPGNUI playPGN;
     public MenuPlayUI play;
     MenuReplayUI replayMenu;
     MenuSettingsUI settings;

@@ -9,6 +9,7 @@ public class MenuPlayUI extends JPanel{
     ManagerUI ui;
     JLabel background;
     public JLabel buttonPlayer;
+    JLabel buttonPGN;
 
     public MenuPlayUI(ManagerUI ui) {
         this.ui = ui;
@@ -99,7 +100,7 @@ public class MenuPlayUI extends JPanel{
         });
         add(buttonComputer);
 
-        JLabel buttonPGN = new JLabel();
+        buttonPGN = new JLabel();
         buttonPGN.setBounds(75, 470, 350, 45);
         buttonPGN.addMouseListener(new MouseListener() {
             @Override

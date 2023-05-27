@@ -21,6 +21,13 @@ Expected Results:
     The castling move is only available under the appropriate conditions.
     Castling is executed correctly, resulting in the king and rook swapping positions.
 
+Scenario: Illegal move.
+    Steps:
+        Perform moves to bring the game to a position suitable for castling.
+        Attempt to perform an illegal move.
+    Expected Result:
+        The illegal move should fail.
+
 Scenario: King has already moved.
     Steps:
         Perform moves to bring the game to a position suitable for castling.

@@ -204,7 +204,7 @@ class StalemateTest {
 
     public void isTurnOf(char expected) {
         try {
-            sleep(100);
+            sleep(50);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -212,7 +212,7 @@ class StalemateTest {
     }
 
     public void move(char turnOf, int fromX, int fromY, int toX, int toY, int gameState) {
-//        isTurnOf(turnOf);
+        isTurnOf(turnOf);
 //        try {
 //            sleep(500);
 //        } catch (InterruptedException e) {

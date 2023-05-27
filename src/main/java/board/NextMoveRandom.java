@@ -1,7 +1,5 @@
 package board;
 
-import board.BoardGame;
-
 import java.util.ArrayList;
 import java.util.Random;
 

@@ -1,0 +1,15 @@
+
+o
+java:S1104"YMake isHighlighted a static final constant or non-public and provide accessors if needed.(û‰ä™
+j
+java:S1104"TMake isYellow a static final constant or non-public and provide accessors if needed.(œ’šß
+G
+java:S2387","ui" is the name of a field in "JComponent".(òé±Ÿüÿÿÿÿ
+E
+java:S2387"*"x" is the name of a field in "Component".(èé‹üûÿÿÿÿ
+E
+java:S2387"*"y" is the name of a field in "Component".(øÛàµøÿÿÿÿ
+œ
+java:S11869"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(®î’×üÿÿÿÿ
+—
+java:S1186>"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(ãÆÐÂ

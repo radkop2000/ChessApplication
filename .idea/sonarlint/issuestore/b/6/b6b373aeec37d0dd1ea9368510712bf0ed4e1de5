@@ -1,0 +1,29 @@
+
+‡
+java:S1319è"pThe return type of this method should be an interface such as "List" rather than the implementation "ArrayList".(ä’ê®
+|
+java:S1319è"eThe type of "moves" should be an interface such as "List" rather than the implementation "ArrayList".(ä’ê®
+t
+java:S1104"RMake pieces a static final constant or non-public and provide accessors if needed.(¡·Šˆùÿÿÿÿ8íÄÑä…1
+q
+java:S1104"OMake pgn a static final constant or non-public and provide accessors if needed.(Ú“† şÿÿÿÿ8ïÄÑä…1
+r
+java:S1104"UMake clickedOn a static final constant or non-public and provide accessors if needed.(’˜¤ş8ğÄÑä…1
+o
+java:S1104"RMake turnOf a static final constant or non-public and provide accessors if needed.(§Ú‰®8ğÄÑä…1
+x
+java:S1104"[Make againstComputer a static final constant or non-public and provide accessors if needed.(Œ¡¨ñ8ñÄÑä…1
+m
+java:S1104"PMake turn a static final constant or non-public and provide accessors if needed.(Êãœ‘8òÄÑä…1
+C	java:S131L""Add a default case to this switch.(¸±²°ıÿÿÿÿ8·ĞÑä…1
+W
+java:S1117g":Rename "pieces" which hides the field declared at line 11.(„§Ê¢8ÅĞÑä…1
+>	java:S131~""Add a default case to this switch.(ÿ…¦8ÍĞÑä…1
+Z
+java:S1155í">Use isEmpty() to check whether the collection is empty or not.(¨î®ûÿÿÿÿ
+Z
+java:S1155ş">Use isEmpty() to check whether the collection is empty or not.(ßßœÓûÿÿÿÿ
+I
+java:S1135î"2Complete the task associated to this TODO comment.(…ïœ†
+Z
+java:S3358†"DExtract this nested ternary operation into an independent statement.(İáİ9

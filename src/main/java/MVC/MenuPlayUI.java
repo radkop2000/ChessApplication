@@ -8,6 +8,7 @@ public class MenuPlayUI extends JPanel{
 
     ManagerUI ui;
     JLabel background;
+    public JLabel buttonPlayer;
 
     public MenuPlayUI(ManagerUI ui) {
         this.ui = ui;
@@ -28,7 +29,7 @@ public class MenuPlayUI extends JPanel{
         ImageIcon backgroundIcon = new ImageIcon("src/main/resources/MenuPlayPlayer.png");
         background.setIcon(backgroundIcon);
 
-        JLabel buttonPlayer = new JLabel();
+        buttonPlayer = new JLabel();
         buttonPlayer.setBounds(75, 351, 267, 50);
         buttonPlayer.addMouseListener(new MouseListener() {
             @Override

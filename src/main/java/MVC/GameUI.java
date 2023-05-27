@@ -16,6 +16,7 @@ public class GameUI extends JPanel implements UI{
     JLabel turnLabel;
     JLabel turnOfLabel;
     JLabel message;
+    public JLabel buttonExit;
     public BoardGame board;
     public Tile[][] tiles = new Tile[8][8];
 
@@ -50,7 +51,7 @@ public class GameUI extends JPanel implements UI{
         ImageIcon backgroundIcon = new ImageIcon("src/main/resources/MenuPlay.png");
         background.setIcon(backgroundIcon);
 
-        JLabel buttonExit = new JLabel();
+        buttonExit = new JLabel();
         buttonExit.setBounds(1040, 566, 243, 39);
         buttonExit.addMouseListener(new MouseListener() {
             @Override

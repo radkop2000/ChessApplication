@@ -52,13 +52,13 @@ public class ReenterGameTest {
         sleep(400);
 
 
-        clicker.simulateClick(1100, 650);
+        clicker.simulateLabelClick(clicker.op.ui.game.buttonExit);
         sleep(400);
 
-        clicker.simulateClick(120, 450);
+        clicker.simulateLabelClick(clicker.op.ui.main.buttonStart);
         sleep(400);
 
-        clicker.simulateClick(120, 450);
+        clicker.simulateLabelClick(clicker.op.ui.play.buttonPlayer);
         sleep(400);
 
         move('W', 6,3,4,3,-1);

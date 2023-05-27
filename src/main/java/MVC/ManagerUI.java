@@ -19,11 +19,11 @@ public class ManagerUI {
     public Operator op;
     Window window;
 
-    MenuMainUI main;
+    public MenuMainUI main;
     MenuSituationUI builder;
     MenuPlayEndGameUI endGame;
     MenuPlayPGNUI playPGN;
-    MenuPlayUI play;
+    public MenuPlayUI play;
     MenuReplayUI replayMenu;
     MenuSettingsUI settings;
     public GameUI game;

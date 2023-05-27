@@ -6,6 +6,7 @@ import java.awt.event.*;
 public class MenuMainUI extends JPanel{
 
     ManagerUI ui;
+    public JLabel buttonStart;
 
     public MenuMainUI(ManagerUI ui) {
         this.ui = ui;
@@ -25,7 +26,7 @@ public class MenuMainUI extends JPanel{
         background.setIcon(backgroundIcon);
 
 
-        JLabel buttonStart = new JLabel();
+        buttonStart = new JLabel();
         buttonStart.setBounds(80, 355, 90, 45);
         buttonStart.addMouseListener(new MouseListener() {
                                          @Override

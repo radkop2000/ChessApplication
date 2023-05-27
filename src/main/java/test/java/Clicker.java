@@ -47,4 +47,16 @@ public class Clicker {
             ex.printStackTrace();
         }
     }
+
+    public void simulateLabelClick(JLabel label) {
+        try {
+            Robot robot = new Robot();
+            Point point = label.getLocationOnScreen();
+            robot.mouseMove(point.x + label.getWidth() / 2, point.y + label.getHeight() / 2);
+            robot.mousePress(InputEvent.BUTTON1_DOWN_MASK);
+            robot.mouseRelease(InputEvent.BUTTON1_DOWN_MASK);
+        } catch (AWTException ex) {
+            ex.printStackTrace();
+        }
+    }
 }

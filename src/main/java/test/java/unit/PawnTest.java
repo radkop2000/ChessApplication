@@ -32,9 +32,6 @@ public class PawnTest {
     public void testLengthOfPossibleMoves() {
         // Get the possible moves
         List<int[]> moves = pawn.possibleMoves();
-        for (int[] move : moves) {
-            System.out.println(move[0] + "," + move[1]);
-        }
         assertEquals(2, moves.size());
     }
 

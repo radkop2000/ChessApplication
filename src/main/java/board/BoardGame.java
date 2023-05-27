@@ -68,9 +68,8 @@ public class BoardGame implements Board {
      * @param x The x coordinate of the piece
      * @param y The y coordinate of the piece.
      */
-    public void putPiece(String piece, int x, int y) {
 
-        System.out.println("called putPiece with " + piece);
+    public void putPiece(String piece, int x, int y) {
 
         ui.putPiece(piece, x, y);
         switch (piece.charAt(1)) {
@@ -170,9 +169,9 @@ public class BoardGame implements Board {
         if (getPiece(clickedOn[0], clickedOn[1]) == 'P' && x != clickedOn[0] && y != clickedOn[1] && getColor(x,y) == 'N') {
             enPassant(y);
         }
+
         boolean takes = getPiece(x, y) != 'N';
 
-        System.out.println("calling putPiece with " + getColor(clickedOn[0], clickedOn[1]) + "" + getPiece(clickedOn[0], clickedOn[1]));
         putPiece(getColor(clickedOn[0], clickedOn[1]) + "" + getPiece(clickedOn[0], clickedOn[1]), x, y);
 
         removePiece(clickedOn[0], clickedOn[1]);
@@ -525,7 +524,8 @@ public class BoardGame implements Board {
      *
      * @return The method isPat() returns a boolean value.
      */
-    private boolean isPat() {
+
+    public boolean isPat() {
         int[] king = findKing(turnOf);
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {

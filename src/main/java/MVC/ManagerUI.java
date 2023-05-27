@@ -26,7 +26,7 @@ public class ManagerUI {
     MenuPlayUI play;
     MenuReplayUI replayMenu;
     MenuSettingsUI settings;
-    GameUI game;
+    public GameUI game;
     ReplayUI replay;
     DiceGameUI dice;
 

@@ -29,6 +29,8 @@ public class Pawn implements Piece{
      */
     @Override
     public ArrayList<int[]> possibleMoves() {
+
+        System.out.println("HERE");
         ArrayList<int[]> moves = new ArrayList<>();
 
         if (color == 'W') {
@@ -68,6 +70,11 @@ public class Pawn implements Piece{
             if (x == 4 && y < 7 && board.getPiece(4,y+1) == 'P' && board.getColor(4, y+1) == 'W') {
                 moves.add(new int[]{5,y+1});
             }
+        }
+
+        System.out.println("returning:");
+        for (int[] move : moves) {
+            System.out.println(move[0] + " " + move[1]);
         }
 
         return moves;

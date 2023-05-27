@@ -12,8 +12,8 @@ import java.util.logging.Logger;
 
 public class Operator {
 
-    Window window;
-    ManagerUI ui;
+    public Window window;
+    public ManagerUI ui;
     Logger logger;
 
     //config

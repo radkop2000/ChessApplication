@@ -1,6 +1,5 @@
 package board;
 
-import board.BoardGame;
 import board.NextMoveCheater;
 import board.NextMoveEasy;
 import board.NextMoveRandom;

@@ -24,6 +24,10 @@ public class Clicker {
         op.ui.op.window.repaint();
     }
 
+    public Clicker(boolean start) {
+        op = new Operator();
+    }
+
     public void simulateTileClick(int x, int y) {
         JLabel label = op.ui.game.tiles[x][y];
         try {

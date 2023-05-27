@@ -1,3 +1,5 @@
+Atempting castling move in chess game
+
 Description:
 This integration test focuses on testing the integration and functionality of a chess application, specifically
 the process starting from the game start until an attempt at castling. The purpose is to ensure that the chess pieces,

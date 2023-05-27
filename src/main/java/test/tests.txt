@@ -48,6 +48,6 @@ Integrační testy
     checkmate
         play a game and save to PGN
     load a game from PGN and continue playing or just watch it
-        Setup Board Test: Ensure that a game can be successfully initiated with two players. Test for the correct assignment of colors (white, black) and initial positions of pieces.
+        en passant
         config.txt test
 

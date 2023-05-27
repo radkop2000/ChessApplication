@@ -76,6 +76,7 @@ public class Operator {
             line = str.split(" ", 2);
             dict.put(line[0], line[1]);
         }
+
         dev = Integer.parseInt(dict.get("dev")) == 1;
         computerDifficulty = Integer.parseInt(dict.get("computerDifficulty"));
         gameMode = Integer.parseInt(dict.get("gameMode"));

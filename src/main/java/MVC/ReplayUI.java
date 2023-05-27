@@ -12,7 +12,7 @@ import java.util.Locale;
 public class ReplayUI extends JPanel implements UI {
 
     public ManagerUI ui;
-    BoardReplay board;
+    public BoardReplay board;
     Tile[][] tiles;
 
     JLabel background;

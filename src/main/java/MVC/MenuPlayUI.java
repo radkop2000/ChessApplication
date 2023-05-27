@@ -9,7 +9,7 @@ public class MenuPlayUI extends JPanel{
     ManagerUI ui;
     JLabel background;
     public JLabel buttonPlayer;
-    JLabel buttonPGN;
+    public JLabel buttonPGN;
 
     public MenuPlayUI(ManagerUI ui) {
         this.ui = ui;

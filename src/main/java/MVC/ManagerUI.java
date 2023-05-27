@@ -24,10 +24,10 @@ public class ManagerUI {
     MenuPlayEndGameUI endGame;
     public MenuPlayPGNUI playPGN;
     public MenuPlayUI play;
-    MenuReplayUI replayMenu;
+    public MenuReplayUI replayMenu;
     MenuSettingsUI settings;
     public GameUI game;
-    ReplayUI replay;
+    public ReplayUI replay;
     DiceGameUI dice;
 
 

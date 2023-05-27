@@ -131,7 +131,7 @@ public class LoadPGNTest {
         sleep(500);
         Assertions.assertEquals(clicker.op.ui.replayMenu, clicker.op.window.activePanel);
 
-        clicker.op.ui.replay.board.pgn.loadPGNFromFile("src/test/resources/test.pgn");
+        clicker.op.ui.replay.board.pgn.loadPGNFromFile("/home/robert/PJV_TS1/ChessApplication/src/main/resources/test.pgn");
         sleep(500);
         Assertions.assertEquals(clicker.op.ui.replay, clicker.op.window.activePanel);
     }

@@ -1,24 +1,19 @@
 package test.java.integration;
 
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import test.java.Clicker;
 
 import static java.lang.Thread.sleep;
 
-public class CheckmateTest {
+public class ReenterGameTest {
 
     Clicker clicker;
 
-    @BeforeEach
-    void setup() {
-        clicker = new Clicker();
-    }
-
-
     @Test
-    public void testCheckmate() {
+    public void testReenterGame() throws InterruptedException {
+        clicker = new Clicker();
+
         for (int i = 0; i < 8; i-=-1) {
             move('W', 6, i, 4, i, -1);
             move('B', 1, i, 3, i, -1);
@@ -54,30 +49,17 @@ public class CheckmateTest {
 
         move('W', 7,4,6,4,-1);
         move('B', 7,2,2,2,-1);
+        sleep(400);
 
-        move('W', 0,5,0,6,-1);
-        move('B', 2,2,7,7,-1);
 
-        move('W', 0,6,0,7,-1);
-        move('B', 7,7,5,7,-1);
+        clicker.simulateClick(1100, 650);
+        sleep(400);
 
-        move('W', 7,6,5,7,-1);
-        move('B', 1,3,1,2,-1);
+        clicker.simulateClick(120, 450);
+        sleep(400);
 
-        move('W', 4,7,4,2,-1);
-        move('B', 1,2,1,1,-1);
-
-        move('W', 4,2,2,2,-1);
-        move('B', 1,1,1,0,-1);
-
-        move('W', 0,7,1,7,-1);
-        move('B', 1,0,0,1,-1);
-
-        move('W', 2,2,0,4,0);
-    }
-
-    @Test
-    public void moveOutOfCheck() throws InterruptedException {
+        clicker.simulateClick(120, 450);
+        sleep(400);
 
         move('W', 6,3,4,3,-1);
         move('B', 1,3,3,3,-1);
@@ -91,13 +73,7 @@ public class CheckmateTest {
         move('W', 7,3,6,4,-1);
         move('B', 0,3,1,4,-1);
 
-        move('W', 6,4,3,1,-1);
-
-        Assertions.assertEquals('W', clicker.op.ui.game.board.getColor(6,4));
-        Assertions.assertEquals('Q', clicker.op.ui.game.board.getPiece(6,4));
-
     }
-
 
     public void move(char turnOf, int fromX, int fromY, int toX, int toY, int gameState) {
         Assertions.assertEquals(turnOf, clicker.op.ui.game.board.turnOf);

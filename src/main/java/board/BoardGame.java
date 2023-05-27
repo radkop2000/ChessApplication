@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 public class BoardGame implements Board {
 
-    Piece[][] pieces;
+    public Piece[][] pieces;
     GameUI ui;
     public PGN pgn = new PGN(this);
     Runnable clock;
@@ -330,7 +330,7 @@ public class BoardGame implements Board {
     public boolean isCheckMate() {
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
-                if (getColor(i, j) == turnOf && movesWithoutCheck(pieces[i][j].possibleMoves(), i, j).size() > 0) {
+                if (getColor(i, j) == turnOf && !movesWithoutCheck(pieces[i][j].possibleMoves(), i, j).isEmpty()) {
                     return false;
                 }
             }

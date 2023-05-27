@@ -275,12 +275,9 @@ class StalemateTest {
 
     }
 
-    public void isTurnOf(char expected) {
-        Assertions.assertEquals(expected, clicker.op.ui.game.board.turnOf);
-    }
 
     public void move(char turnOf, int fromX, int fromY, int toX, int toY, int gameState) {
-        isTurnOf(turnOf);
+        Assertions.assertEquals(turnOf, clicker.op.ui.game.board.turnOf);
         clicker.simulateTileClick(fromX,fromY);
         clicker.simulateTileClick(toX,toY);
         try {

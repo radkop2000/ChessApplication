@@ -36,4 +36,15 @@ public class Clicker {
             ex.printStackTrace();
         }
     }
+
+    public void simulateClick(int x, int y) {
+        try {
+            Robot robot = new Robot();
+            robot.mouseMove(x,y);
+            robot.mousePress(InputEvent.BUTTON1_DOWN_MASK);
+            robot.mouseRelease(InputEvent.BUTTON1_DOWN_MASK);
+        } catch (AWTException ex) {
+            ex.printStackTrace();
+        }
+    }
 }

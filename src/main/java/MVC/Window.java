@@ -4,7 +4,7 @@ import javax.swing.*;
 
 public class Window extends JFrame implements Runnable {
 
-    JPanel activePanel;
+    public JPanel activePanel;
 
 
     public Window() {

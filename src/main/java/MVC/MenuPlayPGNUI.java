@@ -11,8 +11,8 @@ public class MenuPlayPGNUI extends JPanel {
 
     ManagerUI ui;
     JLabel background;
-    JTextArea textArea;
-    JButton loadButton;
+    public JTextArea textArea;
+    public JButton loadButton;
     JFileChooser fileChooser;
 
     public MenuPlayPGNUI(ManagerUI ui) {

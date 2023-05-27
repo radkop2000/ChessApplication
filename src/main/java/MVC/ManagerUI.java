@@ -31,7 +31,6 @@ public class ManagerUI {
     DiceGameUI dice;
 
 
-
     public ManagerUI(Operator op, Window window) {
         this.op = op;
         this.window = window;

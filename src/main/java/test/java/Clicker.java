@@ -7,9 +7,11 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.InputEvent;
 
+import static java.lang.Thread.sleep;
+
 public class Clicker {
 
-    Operator op;
+    public Operator op;
 
     public Clicker() {
         op = new Operator();

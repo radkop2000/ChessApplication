@@ -32,13 +32,13 @@ public class PromotionTest {
         move('B', 5,2,6,1,-1);
 
         move('W', 1,1,0,0,-1);
-        clicker.simulateClick(220 + -1 * 94 + 44, 7 + 2 * 94 + 44 + 44);
+        clicker.simulatePromotionClick(0);
         sleep(50);
         Assertions.assertEquals('W', clicker.op.ui.game.board.getColor(0,0));
         Assertions.assertEquals('Q', clicker.op.ui.game.board.getPiece(0,0));
 
         move('B', 6,1,7,0,-1);
-        clicker.simulateClick(220 + -1 * 94 + 44, 7 + 2 * 94 + 44 + 44);
+        clicker.simulatePromotionClick(0);
         sleep(50);
         Assertions.assertEquals('B', clicker.op.ui.game.board.getColor(7,0));
         Assertions.assertEquals('Q', clicker.op.ui.game.board.getPiece(7,0));
@@ -60,13 +60,13 @@ public class PromotionTest {
         move('B', 5,2,6,1,-1);
 
         move('W', 1,1,0,0,-1);
-        clicker.simulateClick(220 + -1 * 94 + 44, 7 + 2 * 94 + 44 + 44 + 88);
+        clicker.simulatePromotionClick(1);
         sleep(50);
         Assertions.assertEquals('W', clicker.op.ui.game.board.getColor(0,0));
         Assertions.assertEquals('R', clicker.op.ui.game.board.getPiece(0,0));
 
         move('B', 6,1,7,0,-1);
-        clicker.simulateClick(220 + -1 * 94 + 44, 7 + 2 * 94 + 44 + 44 + 88);
+        clicker.simulatePromotionClick(1);
         sleep(50);
         Assertions.assertEquals('B', clicker.op.ui.game.board.getColor(7,0));
         Assertions.assertEquals('R', clicker.op.ui.game.board.getPiece(7,0));
@@ -88,13 +88,13 @@ public class PromotionTest {
         move('B', 5,2,6,1,-1);
 
         move('W', 1,1,0,0,-1);
-        clicker.simulateClick(220 + -1 * 94 + 44, 7 + 2 * 94 + 44 + 44 + 88 + 88);
+        clicker.simulatePromotionClick(2);
         sleep(50);
         Assertions.assertEquals('W', clicker.op.ui.game.board.getColor(0,0));
         Assertions.assertEquals('B', clicker.op.ui.game.board.getPiece(0,0));
 
         move('B', 6,1,7,0,-1);
-        clicker.simulateClick(220 + -1 * 94 + 44, 7 + 2 * 94 + 44 + 44 + 88 + 88);
+        clicker.simulatePromotionClick(2);
         sleep(50);
         Assertions.assertEquals('B', clicker.op.ui.game.board.getColor(7,0));
         Assertions.assertEquals('B', clicker.op.ui.game.board.getPiece(7,0));
@@ -116,13 +116,13 @@ public class PromotionTest {
         move('B', 5,2,6,1,-1);
 
         move('W', 1,1,0,0,-1);
-        clicker.simulateClick(220 + -1 * 94 + 44, 7 + 2 * 94 + 44 + 44 + 88 + 88 + 88);
+        clicker.simulatePromotionClick(3);
         sleep(50);
         Assertions.assertEquals('W', clicker.op.ui.game.board.getColor(0,0));
         Assertions.assertEquals('H', clicker.op.ui.game.board.getPiece(0,0));
 
         move('B', 6,1,7,0,-1);
-        clicker.simulateClick(220 + -1 * 94 + 44, 7 + 2 * 94 + 44 + 44 + 88 + 88 + 88);
+        clicker.simulatePromotionClick(3);
         sleep(50);
         Assertions.assertEquals('B', clicker.op.ui.game.board.getColor(7,0));
         Assertions.assertEquals('H', clicker.op.ui.game.board.getPiece(7,0));

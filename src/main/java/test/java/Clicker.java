@@ -37,6 +37,26 @@ public class Clicker {
         }
     }
 
+    public void simulatePromotionClick(int piece) {
+        JLabel label = switch (piece) {
+            case 0 -> op.ui.game.tiles[2][0];
+            case 1 -> op.ui.game.tiles[3][0];
+            case 2 -> op.ui.game.tiles[4][0];
+            case 3 -> op.ui.game.tiles[5][0];
+            default -> null;
+        };
+
+        try {
+            Robot robot = new Robot();
+            Point point = label.getLocationOnScreen();
+            robot.mouseMove(point.x - 88 + label.getWidth() / 2, point.y + label.getHeight() / 2);
+            robot.mousePress(InputEvent.BUTTON1_DOWN_MASK);
+            robot.mouseRelease(InputEvent.BUTTON1_DOWN_MASK);
+        } catch (AWTException ex) {
+            ex.printStackTrace();
+        }
+    }
+
     public void simulateClick(int x, int y) {
         try {
             Robot robot = new Robot();

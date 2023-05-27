@@ -39,16 +39,9 @@ Unit tests
     Board
     PGN
 
-
-
 Integrační testy
     rosada
-    promotion
-        stalemate
-    checkmate
-        play a game and save to PGN
     load a game from PGN and continue playing or just watch it
-        en passant
         config.txt test
 
 /Users/radovan/Desktop/TS1/semestral/ChessApplication/src/main/java/MVC/Operator.java

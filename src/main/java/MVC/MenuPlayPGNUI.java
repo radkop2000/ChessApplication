@@ -51,7 +51,7 @@ public class MenuPlayPGNUI extends JPanel {
         textArea.setBounds(250, 410, 350, 220);
         add(textArea);
 
-        loadButton = new JButton("Load GUI.PGN");
+        loadButton = new JButton("Load");
         loadButton.setBounds(352, 645, 160, 60);
         loadButton.addActionListener(e -> {
             ui.showPanel(ManagerUI.GAME);

@@ -11,6 +11,7 @@ import java.util.ArrayList;
 
 public class GameUI extends JPanel implements UI{
 
+    public JLabel buttonUndo;
     public ManagerUI ui;
     JLabel background;
     JLabel turnLabel;
@@ -155,7 +156,7 @@ public class GameUI extends JPanel implements UI{
         });
         add(buttonSave);
 
-        JLabel buttonUndo = new JLabel();
+        buttonUndo = new JLabel();
         buttonUndo.setBounds(1044, 464, 284, 40);
         buttonUndo.addMouseListener(new MouseListener() {
             @Override

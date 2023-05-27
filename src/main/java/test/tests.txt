@@ -2,46 +2,13 @@
 
 
 
-привет малчикам и девочкам, я вот тут сижу и думаю, а что если бы в мире было бы больше магии, чем в мире майнкрафта, и вот я решил сделать мод, который добавит в майнкрафт магию, но не просто магию, а магию из мира Гарри Поттера, и вот я сделал мод, который добавляет в майнкрафт магию из мира Гарри Поттера, и вот я сделал мод, который добавляет в майнкрафт магию из мира Гарри Поттера, и вот я сделал мод, который добавляет в майнкрафт магию из мира Гарри Поттера, и вот я сделал мод, который добавляет в майнкрафт магию из мира Гарри Поттера, и вот я сделал мод, который добавляет в майнкрафт магию из мира Гарри Поттера, и вот я сделал мод, который добавляет в майнкрафт магию из мира Гарри Поттера, и вот я сделал мод, который добавляет в майнкрафт магию из мира Гарри Поттера, и вот я сделал мод, который добавляет в майнкрафт магию из мира Гарри Поттера, и вот я сделал мод, который добавляет в майнкрафт магию из мира Гарри Поттера,
-Požadavky    Popis    Body
-
-Návrh testovací strategie
-Popis aplikace    Popište funkcionalitu aplikace.    1
-Testovací strategie    Vytvořte přehled částí aplikace.    1
     Prioritizujte části aplikace.    1
     Vypracujte test levels.    1
 
-Testovací scénáře
 Testy vstupů    Vyberete dva* netriviální vstupy aplikace (např. formulář, rest rozhraní, signatura metody).
-    Nevolte přihlašovací, registrační a podobné triviální formuláře.
-    Konzultujte se cvičícím při výberu aplikace.
     Pro každý vstupní parametr analyzujte EC a určete mezní podmínky (pokud možno).    2
     Vytvořte kombinace testovacích dat technikou pairwise testing.    2
 Testy průchodů    Vytvořte diagramy pro 2* procesy ve vaší aplikaci.    2
     Vytvořte procesní testy z těchto diagramů s TDL 2.    2
 Detailní testovací scénáře    Vytvorte 2* detailni testovaci scenare.    2
 
-Implementace testů
-Unit testy    Vytvořte 10* unit testů testující netriviální metody (netestujte getery, setery a podobně jednoduché metody).     5
-    Minimálně 5 (3)* unit testů má používat Mockito.    5
-Integrační testy    Vytvořte 8* integračních/procesních testů.    6
-
-
-
-
-Unit tests
-        Pawn
-        King
-        Rook
-        Bishop
-        Queen
-        Knight
-    Board
-    PGN
-
-Integrační testy
-    rosada
-    load a game from PGN and continue playing or just watch it
-        config.txt test
-
-/Users/radovan/Desktop/TS1/semestral/ChessApplication/src/main/java/MVC/Operator.java

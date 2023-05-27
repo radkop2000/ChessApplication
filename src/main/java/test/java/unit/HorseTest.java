@@ -1,10 +1,10 @@
-package unit;
+package test.java.unit;
 
 import board.Board;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
-import pieces.Bishop;
+import pieces.Horse;
 
 import static org.mockito.Mockito.*;
 import java.util.List;
@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import static org.junit.jupiter.api.Assertions.*;
 
-public class BishopTest {
+public class HorseTest {
 
     @Test
     public void testLengthOfPossibleMoves() {
@@ -20,13 +20,13 @@ public class BishopTest {
         when(board.getPiece(anyInt(), anyInt())).thenReturn('N'); // Assume all positions are empty
         when(board.getColor(anyInt(), anyInt())).thenReturn('b'); // Assume all pieces are black
 
-        // Create a Bishop
-        Bishop bishop = new Bishop(board, 4, 4, 'w'); // Placing a white Bishop at the center of the board
+        // Create a Horse
+        Horse horse = new Horse(board, 4, 4, 'w'); // Placing a white Horse at the center of the board
 
         // Get the possible moves
-        List<int[]> moves = bishop.possibleMoves();
+        List<int[]> moves = horse.possibleMoves();
 
-        assertEquals(13, moves.size());
+        assertEquals(8, moves.size());
     }
 
     @ParameterizedTest
@@ -37,11 +37,11 @@ public class BishopTest {
         when(board.getPiece(anyInt(), anyInt())).thenReturn('N'); // Assume all positions are empty
         when(board.getColor(anyInt(), anyInt())).thenReturn('b'); // Assume all pieces are black
 
-        // Create a Bishop
-        Bishop bishop = new Bishop(board, 4, 4, 'w'); // Placing a white Bishop at the center of the board
+        // Create a Horse
+        Horse horse = new Horse(board, 4, 4, 'w'); // Placing a white Horse at the center of the board
 
         // Get the possible moves
-        List<int[]> moves = bishop.possibleMoves();
+        List<int[]> moves = horse.possibleMoves();
 
         // Convert list of int[] to list of String
         List<String> stringMoves = moves.stream()
@@ -53,9 +53,10 @@ public class BishopTest {
 
     static Stream<String> provideMovesForTesting() {
         return Stream.of(
-                "5,5", "3,3", "5,3", "3,5",
-                "6,6", "7,7", "2,2", "1,1",
-                "2,6", "1,7", "6,2", "7,1"
+                "2,3", "2,5", // Moves in the upper left direction
+                "3,2", "3,6", // Moves in the upper right direction
+                "5,2", "5,6", // Moves in the lower left direction
+                "6,3", "6,5"  // Moves in the lower right direction
         );
     }
 }

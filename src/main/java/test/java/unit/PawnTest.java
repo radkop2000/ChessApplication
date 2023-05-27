@@ -1,11 +1,11 @@
-package unit;
+package test.java.unit;
 
 import board.Board;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
-import pieces.Queen;
+import pieces.Pawn;
 
 import static org.mockito.Mockito.*;
 import java.util.List;
@@ -13,9 +13,9 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import static org.junit.jupiter.api.Assertions.*;
 
-public class QueenTest {
+public class PawnTest {
 
-    private Queen queen;
+    private Pawn pawn;
 
     @BeforeEach
     public void setUp() {
@@ -23,23 +23,26 @@ public class QueenTest {
         when(board.getPiece(anyInt(), anyInt())).thenReturn('N'); // Assume all positions are empty
         when(board.getColor(anyInt(), anyInt())).thenReturn('N'); // Assume all pieces are black
 
-        // Create a Queen
-        queen = new Queen(board, 4, 4, 'w'); // Placing a white Queen at the center of the board
+        // Create a Pawn
+        pawn = new Pawn(board, 1, 1, 'w'); // Placing a white Pawn at its starting position
+
     }
 
     @Test
     public void testLengthOfPossibleMoves() {
         // Get the possible moves
-        List<int[]> moves = queen.possibleMoves();
-
-        assertEquals(27, moves.size());
+        List<int[]> moves = pawn.possibleMoves();
+        for (int[] move : moves) {
+            System.out.println(move[0] + "," + move[1]);
+        }
+        assertEquals(2, moves.size());
     }
 
     @ParameterizedTest
     @MethodSource("provideMovesForTesting")
     public void testPossibleMovesContainsSpecificMove(String expectedMove) {
         // Get the possible moves
-        List<int[]> moves = queen.possibleMoves();
+        List<int[]> moves = pawn.possibleMoves();
 
         // Convert list of int[] to list of String
         List<String> stringMoves = moves.stream()
@@ -51,13 +54,7 @@ public class QueenTest {
 
     static Stream<String> provideMovesForTesting() {
         return Stream.of(
-                "5,4", "3,4", "4,5", "4,3",
-                "5,5", "3,3", "5,3", "3,5",
-                "6,6", "7,7", "2,2", "1,1",
-                "2,6", "1,7", "6,2", "7,1",
-                "4,0", "4,1", "4,2", "4,6",
-                "4,7", "0,4", "1,4", "2,4",
-                "6,4", "7,4", "4,7"
+                "2,1", "3,1"
         );
     }
 }

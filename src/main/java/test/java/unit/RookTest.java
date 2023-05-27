@@ -1,4 +1,4 @@
-package unit;
+package test.java.unit;
 
 import board.Board;
 import org.junit.jupiter.api.BeforeEach;

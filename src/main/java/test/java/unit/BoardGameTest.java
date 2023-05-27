@@ -1,4 +1,4 @@
-package unit;
+package test.java.unit;
 
 import MVC.GameUI;
 import MVC.PGN;
